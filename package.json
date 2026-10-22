@@ -1,0 +1,11 @@
+{
+  "name": "sbr-race",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "node scripts/build-data.mjs && node scripts/build-single.mjs",
+    "test": "node tests/tests.mjs && node tests/progression-tests.mjs && node tests/deck-tests.mjs && node tests/economy-tests.mjs && node tests/ui-tests.mjs && node tests/stand-tests.mjs && node tests/stand-identity-tests.mjs && node tests/stand-deck-tests.mjs && node tests/inventory-tests.mjs && node tests/loot-tests.mjs && node tests/world-tests.mjs && node tests/encounter-tests.mjs && node tests/achievement-tests.mjs && node tests/deck-growth-tests.mjs && node tests/dedicated-tests.mjs && node tests/player-support-tests.mjs && node tests/card-growth-tests.mjs && node tests/market-tests.mjs && node tests/growth-pacing-tests.mjs && node tests/threat-journey-tests.mjs && node tests/finale-escape-tests.mjs && node tests/escape-event-tests.mjs && node tests/canon-encounter-tests.mjs && node tests/followup-tests.mjs && node tests/representative-quotes-tests.mjs && node tests/major-boss-decks-tests.mjs && node tests/form-results-tests.mjs && node tests/expansion-tests.mjs && node tests/shop-integrity-tests.mjs && node tests/combat-continuation-tests.mjs && node tests/companion-tests.mjs && node tests/audit-tests.mjs && node tests/trade-tests.mjs && node tests/inventory-cleanup-tests.mjs && node tests/combat-equipment-tests.mjs && node tests/reward-equipment-tests.mjs && node tests/companion-flow-tests.mjs && node tests/upstream-adoption-tests.mjs && node tests/narrative-depth-tests.mjs && node tests/hidden-routes-tests.mjs && node tests/hidden-boss-remake-tests.mjs && node tests/major-quote-variants-tests.mjs && node tests/ending-image-tests.mjs",
+    "dev": "node scripts/server.mjs",
+    "test:all": "node scripts/route-regression-runner.mjs"
+  }
+}

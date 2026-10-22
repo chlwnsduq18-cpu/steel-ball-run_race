@@ -1,0 +1,45 @@
+// Authored alternatives use the existing choice / result / condition schema.
+export function addChoiceData(D){
+ const opt=(l,t,fx={},extra={})=>({l,ok:{t,fx},...extra});
+ const check=(l,s,dc,t,fx,ft,ffx)=>({l,check:{s,dc},ok:{t,fx},fail:{t:ft,fx:ffx}});
+ const add=(id,...choices)=>{const e=D.events.find(e=>e.id===id);if(!e)throw Error('Unknown choice event: '+id);e.c.push(...choices);if(e.c.length>4)throw Error('Too many choices: '+id);};
+ add('river',opt('나룻배에 돈을 내고 건넌다','짐을 젖히지 않고 강을 건넜다. 배 위에서 잠시 몸도 쉬었다.',{hp:8},{cost:10}),check('밧줄을 걸고 짐부터 옮긴다','atk',40,'짐을 먼저 건넨 뒤 밧줄을 잡고 물길을 통과했다.',{maxHp:2,hp:3},'매듭을 다시 묶느라 손이 까졌다. 짐은 지켰다.',{hp:-4}));
+ add('broken_wagon',opt('수리 재료를 사서 건넨다','축에 맞는 부품을 구해 주었다. 가족은 도움을 기억하겠다고 했다.',{flag:'wagon_helped',hp:6},{cost:8}),opt('흩어진 짐을 모아 준다','마차를 고치지는 못했지만 짐을 잃지 않도록 도왔다. 작은 품삯을 받았다.',{money:8}));
+ add('gunfire',opt('다친 참가자를 안전한 곳으로 옮긴다','총성이 멀어진 뒤 길가의 부상자를 옮겼다. 고맙다는 말과 함께 응급 물품을 받았다.',{hp:6,flag:'helped_rider'}),check('멀리서 퇴로를 살핀다','eva',30,'습격자가 지나간 방향을 확인하고 버려진 보급을 챙겼다.',{money:12},'몸을 숨기느라 가시덤불에 긁혔다.',{hp:-3}));
+ add('racing_line',opt('기수에게 길 안내를 부탁한다','적은 사례를 주고 위험한 굽이를 피하는 길을 배웠다.',{hp:8},{cost:6}));
+ add('fallen_pack',opt('끊어진 끈을 손질해 챙긴다','다른 짐은 그대로 두고 버려진 끈으로 장비를 고정했다.',{hp:6}),opt('주변 참가자에게 주인을 묻는다','짐의 주인을 찾아 돌려주었다. 감사의 표시로 몇 달러를 받았다.',{money:8,flag:'honest'}));
+ add('dust',opt('천으로 얼굴과 짐을 가린다','여분의 천을 써서 모래를 막았다. 작은 손실로 먼지 구간을 넘겼다.',{hp:7},{cost:4}));
+ add('chase',opt('보급 일부를 남겨 추격을 끊는다','눈에 띄는 자리에 보급을 내려놓고 다른 길로 빠졌다.',{hp:3},{cost:10}));
+ add('duel_offer',opt('짧은 연습 대련을 제안한다','승패를 가리지 않고 방어 자세를 비교했다. 무리 없이 한 가지 동작을 익혔다.',{card:'sbr_basic_guard'}));
+ add('rockslide',check('작은 바위를 치워 통로를 만든다','atk',35,'막힌 통로를 열고 다른 기수에게 길을 내주었다. 답례를 받았다.',{money:12,maxHp:1},'통로는 열었지만 돌에 손을 다쳤다.',{hp:-5}));
+ add('reins',opt('마구를 조정할 부품을 산다','손에 닿는 길이를 조절하니 어깨에 들어가던 힘이 줄었다.',{hp:10},{cost:7}));
+ add('tracks',opt('주변 기수와 길 정보를 교환한다','서로 지나온 길을 비교하고 다음 구간의 방향을 확인했다.',{hp:5,money:4}));
+ add('night_ride',opt('등불 기름을 사서 길을 밝힌다','표식을 놓치지 않고 야간 구간을 통과했다.',{hp:9},{cost:6}));
+ add('target',opt('표적을 다시 세우며 거리를 잰다','서두르지 않고 거리별 발 위치를 익혔다.',{card:'sbr_basic_step'}));
+ add('cold_rain',opt('마른 천과 따뜻한 음료를 구한다','젖은 손을 감싸고 몸을 덥힌 뒤 다시 출발했다.',{hp:12},{cost:7}));
+ add('finish_fatigue',opt('남은 보급을 정리해 몸을 돌본다','마지막 길에 쓸 보급을 충분히 챙겼다.',{hp:20},{cost:12}));
+ add('ambush',check('먼저 인기척을 돌려 다른 길로 빠진다','eva',40,'덤불 반대편에 소리를 내고 짐을 지킨 채 빠져나왔다.',{eva:1},'우회하는 동안 짐 일부가 나뭇가지에 걸려 찢어졌다.',{hp:-4,money:-5}));
+ add('camp_meal',opt('식사 준비를 도와 보급값을 번다','불을 돌보고 설거지를 맡아 식사와 작은 품삯을 받았다.',{hp:5,money:8}),opt('재료를 더해 넉넉하게 나눈다','따뜻한 음식을 충분히 먹었다. 같은 불가의 기수가 위험한 짐에 대해 알려 주었다.',{hp:16,flag:'heard_warning'},{cost:8}));
+ add('camp_breath',opt('주변 발소리를 들으며 경계한다','호흡보다 주변의 움직임에 집중하며 발을 옮기는 요령을 떠올렸다.',{card:'sbr_basic_step'}));
+ add('camp_practice',opt('연습 대신 무기를 손질한다','칼날과 손잡이를 살피고 헐거운 부분을 고쳤다. 익숙한 기술을 다시 확인했다.',{count:{cards:3},hp:3}));
+ add('camp_watch',opt('옆 야영지와 번갈아 경계한다','짐을 한곳에 모으고 경계 시간을 나눴다. 잠들기 전까지 필요한 준비도 끝냈다.',{hp:7},{cost:4}));
+ add('camp_wound',opt('마른 붕대를 얻는 대신 잔일을 돕는다','잠을 조금 줄여 장작을 정리하고 새 붕대를 받았다.',{hp:10,money:3}));
+ add('camp_stories',opt('소문을 기록해 초소에 전한다','확인한 길 정보를 짧게 정리하고 기록값을 받았다.',{money:10}));
+ add('camp_gear',opt('야영지의 수선 도구를 빌린다','값을 지불하고 도구를 빌려 무기의 작은 어긋남을 바로잡았다.',{count:{cards:4},hp:4},{cost:7}));
+ add('camp_wind',opt('장작을 모아 야영객에게 판다','잠들기 전 남은 시간에 마른 나뭇가지를 모았다.',{money:12}));
+ add('town_clinic',opt('진료소의 일을 돕고 치료를 받는다','물과 붕대를 나르는 일을 도운 뒤 상처를 돌보았다.',{hp:16}));
+ add('town_job',opt('짐을 묶고 마차의 출발을 돕는다','무거운 짐 대신 고삐와 끈을 정리했다. 품삯과 자세를 잡는 요령을 얻었다.',{money:7,card:'sbr_basic_guard'}));
+ add('town_range',opt('탄피 정리를 돕고 연습비를 번다','사격이 끝난 자리를 정리하고 작은 품삯을 받았다.',{money:9}));
+ add('town_merchant',opt('상인의 짐 정리를 도와 품삯을 받는다','구입 대신 상품을 정리하는 일을 맡았다.',{money:8}));
+ add('town_thief',opt('시장 경비에게 도움을 청한다','사례를 약속하고 경비와 함께 골목을 확인했다. 지갑을 되찾았다.',{hp:3},{cost:4}));
+ add('town_letters',opt('다른 배달 기수를 소개한다','당신 대신 편지를 맡을 사람을 찾아 주고 소개비를 받았다.',{money:5}));
+ add('town_broker',opt('의뢰를 거절하고 역참의 잔일을 찾는다','출처 모를 짐 대신 초소에 쓸 장작을 옮겼다.',{money:8}),opt('경비에게 중개인의 제안을 알린다','수상한 짐의 특징을 설명했다. 경비가 알려 준 경고를 기억해 두었다.',{flag:'heard_warning',hp:4}));
+ add('town_repairs',opt('다른 손님의 수선을 도와 품삯을 받는다','새 장비를 사는 대신 재료를 자르고 작업대를 정리했다.',{money:9}));
+ add('different_power',opt('힘을 바꾸지 않고 방어 동작에 집중한다','낯선 감각은 흘려보내고 익숙한 방어 자세를 반복했다.',{card:'sbr_basic_brace',hp:5}));
+ add('wagon_reply',opt('보급 대신 장비 손질을 부탁한다','수리 도구로 무기의 손잡이와 연결부를 다시 맞췄다.',{count:{cards:6}}));
+ add('letter_delivered',opt('편지를 전한 뒤 초소에서 쉬어 간다','사례 일부를 사양하고 따뜻한 식사와 잠자리를 얻었다.',{money:8,hp:24,flag:'letter_done'}),opt('편지를 전하고 다음 길을 확인한다','초소의 지도를 함께 살폈다. 사례 대신 길 위에서 쓸 발놀림을 배웠다.',{card:'sbr_basic_step',flag:'letter_done'}));
+ add('river_again',opt('강을 건널 사람들의 짐을 옮겨 준다','익숙한 여울을 오가며 짐을 옮기고 품삯을 받았다.',{money:18}));
+ add('honesty_return',opt('사례 대신 여정에 쓸 약을 부탁한다','짐의 주인이 남겨 둔 약과 붕대를 나누어 주었다.',{hp:24}));
+ add('broker_shadow',opt('중개인 대신 경비와 동행한다','더는 의뢰에 얽히지 않도록 경비의 순찰 구간을 따라 빠져나왔다.',{flag:'broker_left',hp:4},{cost:6}));
+ add('warning_saved',opt('안전한 거리에서 위험 구간을 표시한다','다른 사람이 짐에 손대지 않도록 표시를 남기고 초소에 보고했다.',{money:18}));
+}

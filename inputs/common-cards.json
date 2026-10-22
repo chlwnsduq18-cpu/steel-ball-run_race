@@ -1,0 +1,1656 @@
+{
+  "version": "0.3.1-shared-effects",
+  "source": {
+    "repository": "https://github.com/cityyear-fanmade/city-year",
+    "commit": "2e99219bab13e7110d511b9429e851f861586eb0",
+    "date": "2026-10-17T11:19:31Z"
+  },
+  "scope": "공통 전투 카드 기반. 전체 원작 능력·레이스 구현 아님.",
+  "stats": [
+    "atk",
+    "spd",
+    "eva"
+  ],
+  "newCombatStateKeys": [],
+  "newCardEffectFields": [],
+  "keywords": {
+    "bleed": {
+      "n": "출혈"
+    },
+    "rupture": {
+      "n": "파열"
+    },
+    "breath": {
+      "n": "호흡"
+    },
+    "charge": {
+      "n": "충전"
+    },
+    "sink": {
+      "n": "침잠"
+    },
+    "flame": {
+      "n": "붉은 화염"
+    },
+    "burn": {
+      "n": "화상"
+    },
+    "nail": {
+      "n": "못"
+    },
+    "stagger": {
+      "n": "흐트러짐"
+    }
+  },
+  "stateRules": [
+    {
+      "id": "charge",
+      "n": "충전",
+      "rule": "공통 축적 자원. spend는 보유량 중 최대 지정 수만큼 소비하고 fixPer는 소비량당 적중별 추가 피해를 준다. 부족해도 원본에서는 기본 공격이 불발하지 않는다.",
+      "examples": [
+        "wc_1",
+        "wc_0",
+        "rc_0",
+        "rc_5"
+      ]
+    },
+    {
+      "id": "breath",
+      "n": "호흡",
+      "rule": "1~3은 회피 +5, 4부터 치명 확률 증가, 10 이상 확정 치명. 상한 12. 다음 라운드 시작부터 2 감소. 파문만의 전용 자원이 아니다.",
+      "examples": [
+        "breathe",
+        "as_liu_8",
+        "bl_wind"
+      ]
+    },
+    {
+      "id": "bleed",
+      "n": "출혈",
+      "rule": "공격의 각 타격 처리에서 명중 판정 전에 현재 스택만큼 피해를 받고 1 감소. bleedDmg는 상대의 출혈을 소비하지 않고 추가 피해로 참조한다.",
+      "examples": [
+        "hg_1",
+        "hg_6",
+        "kg_cut",
+        "aw_phantom"
+      ]
+    },
+    {
+      "id": "rupture",
+      "n": "파열",
+      "rule": "공격 적중 시 현재 스택만큼 추가 피해를 받고 1 감소. 여러 번 적중하는 카드와 연계한다.",
+      "examples": [
+        "fissure",
+        "cog",
+        "shard",
+        "brand"
+      ]
+    },
+    {
+      "id": "sink",
+      "n": "침잠",
+      "rule": "3스택당 명중 -6, 주는 피해 -1. 라운드 끝에 1 감소. sinkDmg는 같은 상태를 단계 단위 추가 피해로 활용한다.",
+      "examples": [
+        "sk_5"
+      ]
+    },
+    {
+      "id": "burn",
+      "n": "화상",
+      "rule": "라운드 끝에 지속 피해 후 스택 절반. 원본은 적이 받으면 스택×3, 플레이어는 ×2이며 적이 거는 양도 별도 보정한다. SBR 수치 조정은 공통 설정에서 한 번에 한다.",
+      "examples": [
+        "as_liu_0",
+        "as_liu_14"
+      ]
+    },
+    {
+      "id": "shield",
+      "n": "보호막",
+      "rule": "추가 상태를 발명하지 않고 shield·hitShield로 부여한다. 같은 보호막이 이후 피해를 흡수한다. 최대 150.",
+      "examples": [
+        "hg_3",
+        "wc_2",
+        "as_zwei_1"
+      ]
+    }
+  ],
+  "fields": {
+    "kw": "[키,양,대상] 배열. s=자신, t=상대. 공격은 적중마다, 버프·방어는 해당 카드 처리 때 적용.",
+    "spend": "공통 charge에서 보유한 만큼 소비. 새 자원명이나 강제 비용 검사 없음.",
+    "fixPer": "소비한 충전 1당 적중별 추가 피해.",
+    "charge": "방어 카드의 충전 획득.",
+    "bleedDmg": "상대 공통 출혈량에 비례한 추가 피해.",
+    "sinkDmg": "상대 공통 침잠 단계에 비례한 추가 피해.",
+    "heal": "버프 카드 회복.",
+    "hitHeal": "적중마다 회복.",
+    "shield": "보호막 획득.",
+    "hitShield": "적중마다 보호막 획득.",
+    "eva": "방어 카드의 이번 라운드 회피 보정.",
+    "selfHit": "방어 카드의 이번 라운드 명중 보정.",
+    "passNext": "버프 카드의 다음 라운드 명중 보정.",
+    "debuffHit": "상대 다음 라운드 명중 보정. 음수면 약화.",
+    "cleanseRand": "출혈·파열·화상·붉은 화염 중 걸린 한 종류를 무작위로 감소.",
+    "adv": "명중 굴림을 두 번 하여 좋은 값 사용.",
+    "rr": "최저 피해 주사위를 재굴림하여 좋아지면 교체.",
+    "spdDice": "속도 기준 충족 시 피해 주사위당 보정.",
+    "hpCost": "기존 HP 소비 처리.",
+    "hits": "적중 횟수. 같은 키워드·적중 회복·충전 소비 보너스와 연계.",
+    "dice": "적중당 피해 주사위 수.",
+    "die": "피해 주사위 면 수.",
+    "b": "고정 기본 피해.",
+    "hit": "카드 명중 보정."
+  },
+  "cards": {
+    "sbr_steel_prepare": {
+      "n": "회전 준비",
+      "c": 1,
+      "t": "buff",
+      "kw": [
+        [
+          "charge",
+          3,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +3"
+    },
+    "sbr_steel_throw": {
+      "n": "철구 투척",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "kw": [
+        [
+          "rupture",
+          2,
+          "t"
+        ]
+      ],
+      "d": "1회 × 1d6 · 명중 +5 · 상대 파열 +2(적중마다)"
+    },
+    "sbr_steel_guard": {
+      "n": "회전으로 흘리기",
+      "c": 1,
+      "t": "def",
+      "eva": 12,
+      "charge": 1,
+      "d": "이번 라운드 회피 +12 · 충전 +1"
+    },
+    "sbr_steel_recall": {
+      "n": "귀환한 철구",
+      "c": 1,
+      "t": "buff",
+      "kw": [
+        [
+          "charge",
+          2,
+          "s"
+        ]
+      ],
+      "passNext": 5,
+      "d": "자신 충전 +2 · 다음 라운드 명중 +5"
+    },
+    "sbr_steel_joint": {
+      "n": "관절을 노리다",
+      "c": 2,
+      "t": "atk",
+      "hits": 2,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "spend": 2,
+      "fixPer": 2,
+      "kw": [
+        [
+          "rupture",
+          1,
+          "t"
+        ]
+      ],
+      "d": "2회 × 1d6 · 명중 +5 · 상대 파열 +1(적중마다) · 충전 최대 2 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_steel_focus": {
+      "n": "회전 집중타",
+      "c": 3,
+      "t": "atk",
+      "hits": 1,
+      "dice": 3,
+      "b": 0,
+      "hit": 5,
+      "spend": 99,
+      "fixPer": 3,
+      "d": "1회 × 3d6 · 명중 +5 · 충전 전부 소비·소비량당 적중 피해 +3"
+    },
+    "sbr_sat_ready": {
+      "n": "사출 준비",
+      "c": 1,
+      "t": "buff",
+      "passNext": 10,
+      "d": "다음 라운드 명중 +10"
+    },
+    "sbr_sat_shot": {
+      "n": "위성 철구",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 10,
+      "kw": [
+        [
+          "sink",
+          3,
+          "t"
+        ]
+      ],
+      "d": "1회 × 1d6 · 명중 +10 · 상대 침잠 +3(적중마다)"
+    },
+    "sbr_sat_wave": {
+      "n": "좌반신실조",
+      "c": 2,
+      "t": "buff",
+      "debuffHit": -8,
+      "kw": [
+        [
+          "sink",
+          3,
+          "t"
+        ]
+      ],
+      "d": "상대 침잠 +3 · 상대 다음 라운드 명중 -8"
+    },
+    "sbr_sat_flank": {
+      "n": "사각으로 돌기",
+      "c": 1,
+      "t": "def",
+      "eva": 15,
+      "selfHit": 5,
+      "d": "이번 라운드 회피 +15 · 이번 라운드 명중 +5"
+    },
+    "sbr_sat_combo": {
+      "n": "사각 연격",
+      "c": 2,
+      "t": "atk",
+      "hits": 3,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "d": "3회 × 1d6 · 명중 +5"
+    },
+    "sbr_sat_finish": {
+      "n": "인식 밖의 일격",
+      "c": 3,
+      "t": "atk",
+      "hits": 1,
+      "dice": 3,
+      "b": 0,
+      "hit": 10,
+      "sinkDmg": 3,
+      "d": "1회 × 3d6 · 명중 +10 · 상대 침잠 3당 피해 +3"
+    },
+    "sbr_ham_breathe": {
+      "n": "호흡 정돈",
+      "c": 1,
+      "t": "buff",
+      "kw": [
+        [
+          "breath",
+          3,
+          "s"
+        ]
+      ],
+      "d": "자신 호흡 +3"
+    },
+    "sbr_ham_punch": {
+      "n": "파문 타격",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "kw": [
+        [
+          "breath",
+          1,
+          "s"
+        ]
+      ],
+      "d": "1회 × 1d6 · 명중 +5 · 자신 호흡 +1(적중마다)"
+    },
+    "sbr_ham_flow": {
+      "n": "전도 방어",
+      "c": 1,
+      "t": "def",
+      "eva": 12,
+      "kw": [
+        [
+          "breath",
+          2,
+          "s"
+        ]
+      ],
+      "d": "이번 라운드 회피 +12 · 자신 호흡 +2"
+    },
+    "sbr_ham_heal": {
+      "n": "생명 에너지 순환",
+      "c": 2,
+      "t": "buff",
+      "heal": 8,
+      "kw": [
+        [
+          "breath",
+          2,
+          "s"
+        ]
+      ],
+      "d": "자신 호흡 +2 · HP +8"
+    },
+    "sbr_ham_clean": {
+      "n": "호흡 재정비",
+      "c": 1,
+      "t": "buff",
+      "cleanseRand": 2,
+      "kw": [
+        [
+          "breath",
+          1,
+          "s"
+        ]
+      ],
+      "d": "자신 호흡 +1 · 공통 지속 피해 상태 중 한 종류 무작위 2 감소"
+    },
+    "sbr_ham_overdrive": {
+      "n": "파문 질주",
+      "c": 3,
+      "t": "atk",
+      "hits": 3,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "d": "3회 × 1d6 · 명중 +5"
+    },
+    "sbr_vamp_bite": {
+      "n": "손가락 흡혈",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "hitHeal": 2,
+      "kw": [
+        [
+          "bleed",
+          1,
+          "t"
+        ]
+      ],
+      "d": "1회 × 1d6 · 명중 +5 · 상대 출혈 +1(적중마다) · 적중마다 HP +2"
+    },
+    "sbr_vamp_claw": {
+      "n": "갈라지는 손톱",
+      "c": 1,
+      "t": "atk",
+      "hits": 2,
+      "dice": 1,
+      "b": 0,
+      "hit": 0,
+      "kw": [
+        [
+          "bleed",
+          1,
+          "t"
+        ]
+      ],
+      "d": "2회 × 1d6 · 명중 +0 · 상대 출혈 +1(적중마다)"
+    },
+    "sbr_vamp_regen": {
+      "n": "육체 재생",
+      "c": 2,
+      "t": "buff",
+      "heal": 10,
+      "d": "HP +10"
+    },
+    "sbr_vamp_cover": {
+      "n": "그림자 속으로",
+      "c": 1,
+      "t": "def",
+      "eva": 12,
+      "shield": 4,
+      "d": "이번 라운드 회피 +12 · 보호막 +4"
+    },
+    "sbr_vamp_brace": {
+      "n": "재생으로 버티기",
+      "c": 2,
+      "t": "def",
+      "eva": 10,
+      "shield": 8,
+      "d": "이번 라운드 회피 +10 · 보호막 +8"
+    },
+    "sbr_vamp_feast": {
+      "n": "피를 부르는 강습",
+      "c": 3,
+      "t": "atk",
+      "hits": 2,
+      "dice": 2,
+      "b": 0,
+      "hit": 5,
+      "bleedDmg": 1,
+      "hitHeal": 1,
+      "d": "2회 × 2d6 · 명중 +5 · 적중마다 HP +1 · 상대 출혈당 피해 +1"
+    },
+    "sbr_pillar_shift": {
+      "n": "신체 변형",
+      "c": 1,
+      "t": "buff",
+      "shield": 5,
+      "passNext": 5,
+      "d": "보호막 +5 · 다음 라운드 명중 +5"
+    },
+    "sbr_pillar_strike": {
+      "n": "변형 타격",
+      "c": 1,
+      "t": "atk",
+      "hits": 2,
+      "dice": 1,
+      "b": 0,
+      "hit": 0,
+      "d": "2회 × 1d6 · 명중 +0"
+    },
+    "sbr_pillar_slide": {
+      "n": "몸을 비틀다",
+      "c": 1,
+      "t": "def",
+      "eva": 20,
+      "d": "이번 라운드 회피 +20"
+    },
+    "sbr_pillar_rest": {
+      "n": "변형 완화",
+      "c": 2,
+      "t": "buff",
+      "heal": 6,
+      "shield": 4,
+      "d": "HP +6 · 보호막 +4"
+    },
+    "sbr_pillar_combo": {
+      "n": "변형 연격",
+      "c": 2,
+      "t": "atk",
+      "hits": 3,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "hpCost": 3,
+      "d": "3회 × 1d6 · 명중 +5 · 기존 HP 비용 3"
+    },
+    "sbr_pillar_crush": {
+      "n": "변형 강타",
+      "c": 3,
+      "t": "atk",
+      "hits": 1,
+      "dice": 4,
+      "b": 0,
+      "hit": 5,
+      "hpCost": 5,
+      "hitShield": 5,
+      "d": "1회 × 4d6 · 명중 +5 · 적중마다 보호막 +5 · 기존 HP 비용 5"
+    },
+    "sbr_sword_observe": {
+      "n": "검끝으로 읽다",
+      "c": 1,
+      "t": "buff",
+      "passNext": 8,
+      "kw": [
+        [
+          "breath",
+          2,
+          "s"
+        ]
+      ],
+      "d": "자신 호흡 +2 · 다음 라운드 명중 +8"
+    },
+    "sbr_sword_slash": {
+      "n": "학습된 참격",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 10,
+      "rr": 1,
+      "d": "1회 × 1d6 · 명중 +10 · 피해 재굴림"
+    },
+    "sbr_sword_guard": {
+      "n": "익숙한 궤도",
+      "c": 1,
+      "t": "def",
+      "eva": 15,
+      "selfHit": 5,
+      "d": "이번 라운드 회피 +15 · 이번 라운드 명중 +5"
+    },
+    "sbr_sword_yield": {
+      "n": "검에 몸을 맡기다",
+      "c": 1,
+      "t": "buff",
+      "kw": [
+        [
+          "breath",
+          3,
+          "s"
+        ]
+      ],
+      "d": "자신 호흡 +3"
+    },
+    "sbr_sword_hold": {
+      "n": "자아를 붙잡다",
+      "c": 1,
+      "t": "buff",
+      "cleanseRand": 2,
+      "passNext": 5,
+      "d": "다음 라운드 명중 +5 · 공통 지속 피해 상태 중 한 종류 무작위 2 감소"
+    },
+    "sbr_sword_finish": {
+      "n": "꿰뚫어 본 검로",
+      "c": 3,
+      "t": "atk",
+      "hits": 1,
+      "dice": 3,
+      "b": 0,
+      "hit": 10,
+      "adv": 1,
+      "rr": 1,
+      "d": "1회 × 3d6 · 명중 +10 · 명중 두 번 굴림 · 피해 재굴림"
+    },
+    "sbr_thread_unravel": {
+      "n": "실 풀기",
+      "c": 1,
+      "t": "buff",
+      "shield": 4,
+      "passNext": 5,
+      "d": "보호막 +4 · 다음 라운드 명중 +5"
+    },
+    "sbr_thread_bind": {
+      "n": "실을 걸다",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "kw": [
+        [
+          "rupture",
+          3,
+          "t"
+        ]
+      ],
+      "d": "1회 × 1d6 · 명중 +5 · 상대 파열 +3(적중마다)"
+    },
+    "sbr_thread_evade": {
+      "n": "몸을 풀어 피하다",
+      "c": 1,
+      "t": "def",
+      "eva": 20,
+      "d": "이번 라운드 회피 +20"
+    },
+    "sbr_thread_join": {
+      "n": "육체 재결합",
+      "c": 1,
+      "t": "buff",
+      "heal": 4,
+      "kw": [
+        [
+          "charge",
+          1,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +1 · HP +4"
+    },
+    "sbr_thread_pull": {
+      "n": "실로 당기기",
+      "c": 2,
+      "t": "atk",
+      "hits": 1,
+      "dice": 2,
+      "b": 0,
+      "hit": 5,
+      "bleedDmg": 1,
+      "kw": [
+        [
+          "rupture",
+          1,
+          "t"
+        ]
+      ],
+      "d": "1회 × 2d6 · 명중 +5 · 상대 파열 +1(적중마다) · 상대 출혈당 피해 +1"
+    },
+    "sbr_thread_rush": {
+      "n": "뭉쳐진 실의 러시",
+      "c": 3,
+      "t": "atk",
+      "hits": 3,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "spend": 2,
+      "fixPer": 1,
+      "d": "3회 × 1d6 · 명중 +5 · 충전 최대 2 소비·소비량당 적중 피해 +1"
+    },
+    "sbr_colony_water": {
+      "n": "수분 보충",
+      "c": 1,
+      "t": "buff",
+      "heal": 4,
+      "kw": [
+        [
+          "charge",
+          2,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +2 · HP +4"
+    },
+    "sbr_colony_shot": {
+      "n": "생체탄",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 10,
+      "spend": 1,
+      "fixPer": 2,
+      "d": "1회 × 1d6 · 명중 +10 · 충전 최대 1 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_colony_split": {
+      "n": "군체 분산",
+      "c": 1,
+      "t": "def",
+      "eva": 15,
+      "shield": 3,
+      "d": "이번 라운드 회피 +15 · 보호막 +3"
+    },
+    "sbr_colony_restore": {
+      "n": "군체 복구",
+      "c": 2,
+      "t": "buff",
+      "heal": 8,
+      "shield": 4,
+      "d": "HP +8 · 보호막 +4"
+    },
+    "sbr_colony_mend": {
+      "n": "상처 봉합",
+      "c": 1,
+      "t": "buff",
+      "heal": 4,
+      "cleanseRand": 1,
+      "d": "HP +4 · 공통 지속 피해 상태 중 한 종류 무작위 1 감소"
+    },
+    "sbr_colony_barrage": {
+      "n": "생체탄 연사",
+      "c": 3,
+      "t": "atk",
+      "hits": 3,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "spend": 3,
+      "fixPer": 2,
+      "d": "3회 × 1d6 · 명중 +5 · 충전 최대 3 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_pistol_position": {
+      "n": "사격 위치 지정",
+      "c": 1,
+      "t": "buff",
+      "passNext": 10,
+      "kw": [
+        [
+          "charge",
+          1,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +1 · 다음 라운드 명중 +10"
+    },
+    "sbr_pistol_shoot": {
+      "n": "유도 사격",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 15,
+      "spend": 1,
+      "fixPer": 2,
+      "d": "1회 × 1d6 · 명중 +15 · 충전 최대 1 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_pistol_bounce": {
+      "n": "도탄",
+      "c": 2,
+      "t": "atk",
+      "hits": 2,
+      "dice": 1,
+      "b": 0,
+      "hit": 10,
+      "spend": 2,
+      "fixPer": 2,
+      "d": "2회 × 1d6 · 명중 +10 · 충전 최대 2 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_pistol_reload": {
+      "n": "재장전",
+      "c": 1,
+      "t": "buff",
+      "kw": [
+        [
+          "charge",
+          3,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +3"
+    },
+    "sbr_pistol_cover": {
+      "n": "엄호 사격",
+      "c": 1,
+      "t": "def",
+      "eva": 15,
+      "charge": 1,
+      "d": "이번 라운드 회피 +15 · 충전 +1"
+    },
+    "sbr_pistol_volley": {
+      "n": "집중 포화",
+      "c": 3,
+      "t": "atk",
+      "hits": 4,
+      "dice": 1,
+      "b": 0,
+      "hit": 0,
+      "die": 4,
+      "spend": 3,
+      "fixPer": 2,
+      "d": "4회 × 1d4 · 명중 +0 · 충전 최대 3 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_time_focus": {
+      "n": "정지에 집중하다",
+      "c": 1,
+      "t": "buff",
+      "kw": [
+        [
+          "charge",
+          3,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +3"
+    },
+    "sbr_time_strike": {
+      "n": "찰나의 일격",
+      "c": 1,
+      "t": "atk",
+      "hits": 1,
+      "dice": 1,
+      "b": 0,
+      "hit": 10,
+      "spdDice": [
+        6,
+        1
+      ],
+      "d": "1회 × 1d6 · 명중 +10 · 속도 6 이상: 주사위당 +1"
+    },
+    "sbr_time_read": {
+      "n": "위험을 예측하다",
+      "c": 1,
+      "t": "def",
+      "eva": 15,
+      "charge": 1,
+      "d": "이번 라운드 회피 +15 · 충전 +1"
+    },
+    "sbr_time_prepare": {
+      "n": "순간을 준비하다",
+      "c": 1,
+      "t": "buff",
+      "passNext": 10,
+      "kw": [
+        [
+          "charge",
+          2,
+          "s"
+        ]
+      ],
+      "d": "자신 충전 +2 · 다음 라운드 명중 +10"
+    },
+    "sbr_time_place": {
+      "n": "준비한 공격",
+      "c": 2,
+      "t": "atk",
+      "hits": 2,
+      "dice": 1,
+      "b": 0,
+      "hit": 5,
+      "spend": 2,
+      "fixPer": 2,
+      "d": "2회 × 1d6 · 명중 +5 · 충전 최대 2 소비·소비량당 적중 피해 +2"
+    },
+    "sbr_time_finish": {
+      "n": "찰나의 강타",
+      "c": 3,
+      "t": "atk",
+      "hits": 1,
+      "dice": 3,
+      "b": 0,
+      "hit": 10,
+      "spend": 99,
+      "fixPer": 3,
+      "d": "1회 × 3d6 · 명중 +10 · 충전 전부 소비·소비량당 적중 피해 +3"
+    }
+  },
+  "decks": [
+    {
+      "id": "steel",
+      "title": "체펠리류 철구 계승자",
+      "focus": "충전 → 파열·강타",
+      "cards": [
+        "sbr_steel_prepare",
+        "sbr_steel_throw",
+        "sbr_steel_guard",
+        "sbr_steel_recall",
+        "sbr_steel_joint",
+        "sbr_steel_focus"
+      ],
+      "deck": [
+        "sbr_steel_prepare",
+        "sbr_steel_prepare",
+        "sbr_steel_throw",
+        "sbr_steel_throw",
+        "sbr_steel_guard",
+        "sbr_steel_guard",
+        "sbr_steel_recall",
+        "sbr_steel_recall",
+        "sbr_steel_joint",
+        "sbr_steel_joint",
+        "sbr_steel_focus",
+        "sbr_steel_focus"
+      ],
+      "note": "회전·귀환은 충전 획득의 맥락으로 표현한다. 별도 rotation·balls 상태를 만들지 않는다. 황금장방형·마상 회전의 원작 조건은 후속 사건으로 남긴다.",
+      "plannedLink": null
+    },
+    {
+      "id": "satellite",
+      "title": "렉킹 볼 계승자",
+      "focus": "침잠·명중 보정 → 약화된 상대 추격",
+      "cards": [
+        "sbr_sat_ready",
+        "sbr_sat_shot",
+        "sbr_sat_wave",
+        "sbr_sat_flank",
+        "sbr_sat_combo",
+        "sbr_sat_finish"
+      ],
+      "deck": [
+        "sbr_sat_ready",
+        "sbr_sat_ready",
+        "sbr_sat_shot",
+        "sbr_sat_shot",
+        "sbr_sat_wave",
+        "sbr_sat_wave",
+        "sbr_sat_flank",
+        "sbr_sat_flank",
+        "sbr_sat_combo",
+        "sbr_sat_combo",
+        "sbr_sat_finish",
+        "sbr_sat_finish"
+      ],
+      "note": "좌반신실조는 능력·카드 이름이다. 저장하는 상태는 공통 침잠이며, 다른 카드가 건 침잠도 같은 추가 피해에 쓰인다. 침잠은 원본의 명중·피해 약화 규칙을 그대로 쓴다. 방향 인식의 모든 현상을 재현한 것은 아니다.",
+      "plannedLink": null
+    },
+    {
+      "id": "hamon",
+      "title": "파문 수련자",
+      "focus": "호흡 → 치명·회복·방어",
+      "cards": [
+        "sbr_ham_breathe",
+        "sbr_ham_punch",
+        "sbr_ham_flow",
+        "sbr_ham_heal",
+        "sbr_ham_clean",
+        "sbr_ham_overdrive"
+      ],
+      "deck": [
+        "sbr_ham_breathe",
+        "sbr_ham_breathe",
+        "sbr_ham_punch",
+        "sbr_ham_punch",
+        "sbr_ham_flow",
+        "sbr_ham_flow",
+        "sbr_ham_heal",
+        "sbr_ham_heal",
+        "sbr_ham_clean",
+        "sbr_ham_clean",
+        "sbr_ham_overdrive",
+        "sbr_ham_overdrive"
+      ],
+      "note": "호흡은 원본의 공통 회피·치명 버프다. 원본에 없는 호흡 소비 비용·파문 전용 봉인·호흡 가능 검사를 추가하지 않는다. 회복·정화는 행동 비용으로 제한한다.",
+      "plannedLink": null
+    },
+    {
+      "id": "vampire",
+      "title": "돌가면의 흡혈귀",
+      "focus": "출혈 → 추가 피해·적중 회복",
+      "cards": [
+        "sbr_vamp_bite",
+        "sbr_vamp_claw",
+        "sbr_vamp_regen",
+        "sbr_vamp_cover",
+        "sbr_vamp_brace",
+        "sbr_vamp_feast"
+      ],
+      "deck": [
+        "sbr_vamp_bite",
+        "sbr_vamp_bite",
+        "sbr_vamp_claw",
+        "sbr_vamp_claw",
+        "sbr_vamp_regen",
+        "sbr_vamp_regen",
+        "sbr_vamp_cover",
+        "sbr_vamp_cover",
+        "sbr_vamp_brace",
+        "sbr_vamp_brace",
+        "sbr_vamp_feast",
+        "sbr_vamp_feast"
+      ],
+      "note": "blood 자원 없이 공통 출혈·회복을 조합한다. 카드 이름은 게임용이며 디오의 기화냉동법을 종족 기본 기술로 부여하지 않는다. 태양 약점은 출신 사건에 연결할 수 있지만 별도 전투 부위·차광 시뮬레이션은 확정하지 않는다.",
+      "plannedLink": null
+    },
+    {
+      "id": "pillar",
+      "title": "기둥 속 사내 계열의 신체 변형",
+      "focus": "보호막·HP 비용 → 강한 육탄전",
+      "cards": [
+        "sbr_pillar_shift",
+        "sbr_pillar_strike",
+        "sbr_pillar_slide",
+        "sbr_pillar_rest",
+        "sbr_pillar_combo",
+        "sbr_pillar_crush"
+      ],
+      "deck": [
+        "sbr_pillar_shift",
+        "sbr_pillar_shift",
+        "sbr_pillar_strike",
+        "sbr_pillar_strike",
+        "sbr_pillar_slide",
+        "sbr_pillar_slide",
+        "sbr_pillar_rest",
+        "sbr_pillar_rest",
+        "sbr_pillar_combo",
+        "sbr_pillar_combo",
+        "sbr_pillar_crush",
+        "sbr_pillar_crush"
+      ],
+      "note": "exertion·bodyMode 상태를 만들지 않는다. 신체 변형을 공격 횟수·보호막·HP 비용으로 표현한다. 빛·열·바람 유법의 실제 능력을 정의한 덱은 아니다.",
+      "plannedLink": null
+    },
+    {
+      "id": "sword",
+      "title": "아누비스신 계열의 검 소유자",
+      "focus": "호흡·명중·재굴림 → 안정적인 참격",
+      "cards": [
+        "sbr_sword_observe",
+        "sbr_sword_slash",
+        "sbr_sword_guard",
+        "sbr_sword_yield",
+        "sbr_sword_hold",
+        "sbr_sword_finish"
+      ],
+      "deck": [
+        "sbr_sword_observe",
+        "sbr_sword_observe",
+        "sbr_sword_slash",
+        "sbr_sword_slash",
+        "sbr_sword_guard",
+        "sbr_sword_guard",
+        "sbr_sword_yield",
+        "sbr_sword_yield",
+        "sbr_sword_hold",
+        "sbr_sword_hold",
+        "sbr_sword_finish",
+        "sbr_sword_finish"
+      ],
+      "note": "전투용 adapt·erosion 자원 없이 공통 버프를 사용한다. 기술 기억은 적마다 미리 제작한 전용 카드를 격파 보상으로 얻어 덱에 활용하는 방식으로 표현한다. 별도 학습 기록이나 상대 행동 분석을 요구하지 않는다.",
+      "plannedLink": {
+        "id": "victoryCards",
+        "status": "planned",
+        "reuse": "적 데이터의 rewardCards에 미리 제작한 카드 ID를 연결하고, 승리 시 공통 카드 획득 절차로 지급한다. 보상 연결은 아직 구현하지 않았다."
+      }
+    },
+    {
+      "id": "thread",
+      "title": "신체를 실로 바꾸는 스탠드 사용자",
+      "focus": "파열·출혈 → 다단 타격·방어",
+      "cards": [
+        "sbr_thread_unravel",
+        "sbr_thread_bind",
+        "sbr_thread_evade",
+        "sbr_thread_join",
+        "sbr_thread_pull",
+        "sbr_thread_rush"
+      ],
+      "deck": [
+        "sbr_thread_unravel",
+        "sbr_thread_unravel",
+        "sbr_thread_bind",
+        "sbr_thread_bind",
+        "sbr_thread_evade",
+        "sbr_thread_evade",
+        "sbr_thread_join",
+        "sbr_thread_join",
+        "sbr_thread_pull",
+        "sbr_thread_pull",
+        "sbr_thread_rush",
+        "sbr_thread_rush"
+      ],
+      "note": "thread 전용 자원이나 별도 속박 상태 없이 파열과 다단 공격을 연계한다. 모든 피해가 증가하는 분해 패널티나 신체 비율 검사는 추가하지 않는다.",
+      "plannedLink": null
+    },
+    {
+      "id": "colony",
+      "title": "플랑크톤 군체생명체",
+      "focus": "회복·보호막·충전 → 생체탄",
+      "cards": [
+        "sbr_colony_water",
+        "sbr_colony_shot",
+        "sbr_colony_split",
+        "sbr_colony_restore",
+        "sbr_colony_mend",
+        "sbr_colony_barrage"
+      ],
+      "deck": [
+        "sbr_colony_water",
+        "sbr_colony_water",
+        "sbr_colony_shot",
+        "sbr_colony_shot",
+        "sbr_colony_split",
+        "sbr_colony_split",
+        "sbr_colony_restore",
+        "sbr_colony_restore",
+        "sbr_colony_mend",
+        "sbr_colony_mend",
+        "sbr_colony_barrage",
+        "sbr_colony_barrage"
+      ],
+      "note": "수분 보충과 군체 복구를 카드의 행동 비용·회복·충전으로 환산한다. 물을 초능력으로 생성한다는 설정은 아니다. water·colony·휴대 수량을 각각 추적하는 전투 상태는 추가하지 않는다.",
+      "plannedLink": null
+    },
+    {
+      "id": "pistols",
+      "title": "섹스 피스톨즈 계열의 탄도 조작",
+      "focus": "충전·명중 → 다단 사격",
+      "cards": [
+        "sbr_pistol_position",
+        "sbr_pistol_shoot",
+        "sbr_pistol_bounce",
+        "sbr_pistol_reload",
+        "sbr_pistol_cover",
+        "sbr_pistol_volley"
+      ],
+      "deck": [
+        "sbr_pistol_position",
+        "sbr_pistol_position",
+        "sbr_pistol_shoot",
+        "sbr_pistol_shoot",
+        "sbr_pistol_bounce",
+        "sbr_pistol_bounce",
+        "sbr_pistol_reload",
+        "sbr_pistol_reload",
+        "sbr_pistol_cover",
+        "sbr_pistol_cover",
+        "sbr_pistol_volley",
+        "sbr_pistol_volley"
+      ],
+      "note": "6개체라는 설정과 전투 자원을 구별한다. 사격 준비·재장전은 공통 충전이며 탄환·position·예비탄 상태를 각각 추가하지 않는다. 총을 사용하는 묘사와 별개로 전술 보급 게임을 만들지 않는다.",
+      "plannedLink": null
+    },
+    {
+      "id": "time",
+      "title": "시간정지형 스탠드 사용자",
+      "focus": "공통 준비 카드 + 상대 턴 건너뛰기",
+      "cards": [
+        "sbr_time_focus",
+        "sbr_time_strike",
+        "sbr_time_read",
+        "sbr_time_prepare",
+        "sbr_time_place",
+        "sbr_time_finish"
+      ],
+      "deck": [
+        "sbr_time_focus",
+        "sbr_time_focus",
+        "sbr_time_strike",
+        "sbr_time_strike",
+        "sbr_time_read",
+        "sbr_time_read",
+        "sbr_time_prepare",
+        "sbr_time_prepare",
+        "sbr_time_place",
+        "sbr_time_place",
+        "sbr_time_finish",
+        "sbr_time_finish"
+      ],
+      "note": "시간정지는 상대의 행동 턴을 지정 횟수 건너뛰어 그동안 자신만 행동하게 하는 공통 행동 불가 효과로 표현한다. 여기 6장은 기존 필드로 실행되는 준비·공격 카드이며, 턴 건너뛰기 발동 카드는 연결 전이다.",
+      "plannedLink": {
+        "id": "turnSkip",
+        "status": "planned",
+        "reuse": "공통 행동 불가 횟수를 대상에게 부여하고, 대상의 행동 턴을 건너뛸 때 1씩 차감한다. 시간정지·기절 등은 같은 처리기를 사용한다. 현재 원본 엔진에 이 범용 연결은 구현하지 않았다."
+      }
+    }
+  ],
+  "withheldStarts": [
+    {
+      "id": "rock",
+      "n": "바위 인간 참가자",
+      "reason": "명칭을 바위 인간으로 정정. 기존 반격 덱 6장은 전부 사용 목록에서 제외한다. 종족은 출신 조건으로 남기고 별도의 시작 스탠드·휴면 서사가 필요하다."
+    },
+    {
+      "id": "disc",
+      "n": "스탠드 DISC 적합자",
+      "reason": "기존 6장 사용 보류. 시작 시 적합한 스탠드 하나의 능력과 덱을 먼저 확정해야 한다. 타인 격파 때 DISC를 뽑아 스탠드를 수집하는 보상은 만들지 않는다."
+    },
+    {
+      "id": "corpse",
+      "n": "성인의 유해 접촉자",
+      "reason": "기존 6장과 각성 예정 카드의 사용을 보류한다. 시작 부위·개인 스탠드·기존 소유 관계를 먼저 정하고, 유해를 모든 참가자에게 복제하지 않는다."
+    }
+  ],
+  "displayPolicy": "충전·호흡·출혈 등의 이름과 작동은 모든 덱에서 동일. 회전·재장전 등은 카드명·설명·대사의 맥락이며 같은 상태의 별칭을 덱별 UI에 늘리지 않는다.",
+  "passivePolicy": "덱 고유 패시브는 기존 공통 상태의 획득 시점·효율·참조 보너스를 바꾼다. 원작 인물명으로 분기하거나 카드마다 함수를 만들지 않는다. 필요한 패시브 처리 종류만 한 번 구현한다.",
+  "plannedCommonFeatures": {
+    "turnSkip": {
+      "status": "planned",
+      "effect": "행동 불가",
+      "durationUnit": "대상의 행동 턴",
+      "consume": "대상의 턴을 건너뛸 때 1 차감",
+      "scope": "전투",
+      "rule": "2회 부여하면 대상의 다음 행동 턴 2회를 건너뛰며, 시전자는 정상적으로 자신의 턴에 행동한다. 한 턴의 카드 수와 구별한다. 플레이어와 적에 같은 처리기를 사용한다. 지속 피해·버프의 경과는 공통 턴 규칙을 따른다."
+    },
+    "victoryCards": {
+      "status": "planned",
+      "enemyField": "rewardCards",
+      "value": "미리 제작한 카드 ID 배열",
+      "trigger": "승리",
+      "delivery": "공통 카드 획득 절차",
+      "rule": "각 적의 고유 능력을 카드로 미리 정의해 격파 보상으로 연결한다. 획득한 카드는 기존 덱 구성에 사용한다. 별도 기술 기억 자원이나 상대 행동 기록은 만들지 않는다. 격파 대상 재조우 제한은 기존 회차 규칙으로 처리한다."
+    }
+  },
+  "plannedLinks": [
+    {
+      "deck": "sword",
+      "id": "victoryCards",
+      "status": "planned",
+      "reuse": "적 데이터의 rewardCards에 미리 제작한 카드 ID를 연결하고, 승리 시 공통 카드 획득 절차로 지급한다. 보상 연결은 아직 구현하지 않았다."
+    },
+    {
+      "deck": "time",
+      "id": "turnSkip",
+      "status": "planned",
+      "reuse": "공통 행동 불가 횟수를 대상에게 부여하고, 대상의 행동 턴을 건너뛸 때 1씩 차감한다. 시간정지·기절 등은 같은 처리기를 사용한다. 현재 원본 엔진에 이 범용 연결은 구현하지 않았다."
+    }
+  ],
+  "retiredDesign": {
+    "version": "0.2.1-synergy-focus",
+    "note": "rotation,balls,breathing,blood,exertion,adapt,erosion,thread,colony,water,ammo,position,focus 등 덱별 전투 상태와 별도 효과 DSL을 신규 공통 전투 카드 기반에서 사용하지 않는다. 이는 원작 능력 자체의 삭제가 아니다.",
+    "sourceRules": [
+      "비 스탠드 기술·신체 강화와 스탠드 능력을 구분. 신체가 강하다는 이유만으로 모든 스탠드를 보거나 직접 타격한다고 처리하지 않음. 능력별 상호작용은 별도 명시.",
+      "경험 보상은 플레이어의 대응 숙련·영구 아이템. 원작 스탠드의 강탈·자동 복사로 해석하지 않음.",
+      "7부 외의 설정을 1890년 레이스로 옮기는 것은 팬게임의 교차 설정. 원작 7부에 모두 실재한 시작이라고 설명하지 않음."
+    ]
+  },
+  "originalFieldUse": {
+    "n": {
+      "count": 378,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "c": {
+      "count": 378,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "t": {
+      "count": 378,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "hits": {
+      "count": 298,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "dice": {
+      "count": 298,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "b": {
+      "count": 298,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "hit": {
+      "count": 298,
+      "examples": [
+        "slash",
+        "thrust",
+        "smash"
+      ]
+    },
+    "d": {
+      "count": 190,
+      "examples": [
+        "guard",
+        "breathe",
+        "brand"
+      ]
+    },
+    "kw": {
+      "count": 178,
+      "examples": [
+        "fissure",
+        "rustblade",
+        "breathe"
+      ]
+    },
+    "eva": {
+      "count": 32,
+      "examples": [
+        "shadowstep",
+        "lib_blank",
+        "e_focus"
+      ]
+    },
+    "adv": {
+      "count": 17,
+      "examples": [
+        "aim",
+        "h_sbg",
+        "as_hana_5"
+      ]
+    },
+    "rr": {
+      "count": 10,
+      "examples": [
+        "precise",
+        "as_hana_0",
+        "as_hana_1"
+      ]
+    },
+    "min": {
+      "count": 6,
+      "examples": [
+        "heavy",
+        "as_dieci_2",
+        "as_dieci_3"
+      ]
+    },
+    "die": {
+      "count": 104,
+      "examples": [
+        "x_furioso",
+        "x_lh_chojeol",
+        "t_maengho"
+      ]
+    },
+    "rngDebuff": {
+      "count": 1,
+      "examples": [
+        "x_furioso"
+      ]
+    },
+    "next": {
+      "count": 15,
+      "examples": [
+        "x_lh_kwaedo",
+        "z_rat",
+        "z_ox"
+      ]
+    },
+    "seal": {
+      "count": 3,
+      "examples": [
+        "j_lock",
+        "j_fairy",
+        "j_shock"
+      ]
+    },
+    "serum": {
+      "count": 3,
+      "examples": [
+        "j_serumW",
+        "j_serumR",
+        "j_serumK"
+      ]
+    },
+    "unseal": {
+      "count": 1,
+      "examples": [
+        "j_unlock"
+      ]
+    },
+    "lightNext": {
+      "count": 2,
+      "examples": [
+        "lib_blank",
+        "e_once_guard"
+      ]
+    },
+    "gain": {
+      "count": 6,
+      "examples": [
+        "lib_guest",
+        "as_hana_8",
+        "as_seven_8"
+      ]
+    },
+    "shield": {
+      "count": 25,
+      "examples": [
+        "m_doll",
+        "m_curtain",
+        "f_zweishield"
+      ]
+    },
+    "mat": {
+      "count": 2,
+      "examples": [
+        "m_melody",
+        "m_bonesaw"
+      ]
+    },
+    "harvest": {
+      "count": 1,
+      "examples": [
+        "m_theater"
+      ]
+    },
+    "reuse": {
+      "count": 1,
+      "examples": [
+        "m_closing"
+      ]
+    },
+    "dmark": {
+      "count": 2,
+      "examples": [
+        "b_taglio",
+        "b_punto"
+      ]
+    },
+    "grant": {
+      "count": 1,
+      "examples": [
+        "b_elefante"
+      ]
+    },
+    "exec": {
+      "count": 1,
+      "examples": [
+        "b_exec"
+      ]
+    },
+    "execHit": {
+      "count": 1,
+      "examples": [
+        "b_exec"
+      ]
+    },
+    "once": {
+      "count": 3,
+      "examples": [
+        "b_exec1",
+        "rc_4",
+        "rc_8"
+      ]
+    },
+    "gungnir": {
+      "count": 1,
+      "examples": [
+        "g_gungnir"
+      ]
+    },
+    "serumBurst": {
+      "count": 1,
+      "examples": [
+        "j_execute"
+      ]
+    },
+    "mindCost": {
+      "count": 5,
+      "examples": [
+        "e_manifest",
+        "e_bloom_atk",
+        "rd_2"
+      ]
+    },
+    "fixed": {
+      "count": 4,
+      "examples": [
+        "e_manifest",
+        "e_focus",
+        "e_bloom_atk"
+      ]
+    },
+    "egoGrow": {
+      "count": 1,
+      "examples": [
+        "e_manifest"
+      ]
+    },
+    "mindGain": {
+      "count": 2,
+      "examples": [
+        "e_focus",
+        "e_bloom_def"
+      ]
+    },
+    "gamble": {
+      "count": 4,
+      "examples": [
+        "d_jackpot",
+        "d_maw",
+        "d_coin"
+      ]
+    },
+    "bloomGrant": {
+      "count": 2,
+      "examples": [
+        "e_bloom_atk",
+        "e_bloom_def"
+      ]
+    },
+    "hitShield": {
+      "count": 8,
+      "examples": [
+        "ap_watch",
+        "as_zwei_1",
+        "as_zwei_3"
+      ]
+    },
+    "heal": {
+      "count": 3,
+      "examples": [
+        "ap_story",
+        "bm_firstaid",
+        "hg_5"
+      ]
+    },
+    "passNext": {
+      "count": 7,
+      "examples": [
+        "ap_story",
+        "wc_3",
+        "rc_2"
+      ]
+    },
+    "noRepeat": {
+      "count": 2,
+      "examples": [
+        "ap_story",
+        "hg_5"
+      ]
+    },
+    "debuffHit": {
+      "count": 1,
+      "examples": [
+        "ap_prophecy"
+      ]
+    },
+    "cleanseRand": {
+      "count": 1,
+      "examples": [
+        "bm_firstaid"
+      ]
+    },
+    "selfHit": {
+      "count": 1,
+      "examples": [
+        "bm_measure"
+      ]
+    },
+    "range": {
+      "count": 7,
+      "examples": [
+        "rp_garo",
+        "rp_sero",
+        "rp_cut"
+      ]
+    },
+    "hpCost": {
+      "count": 1,
+      "examples": [
+        "k_hyeolgap"
+      ]
+    },
+    "bleedDmg": {
+      "count": 7,
+      "examples": [
+        "k_finale",
+        "kg_cut",
+        "aw_phantom"
+      ]
+    },
+    "hitHeal": {
+      "count": 3,
+      "examples": [
+        "k_sangre",
+        "hg_7",
+        "hg_9"
+      ]
+    },
+    "spend": {
+      "count": 16,
+      "examples": [
+        "wc_0",
+        "wc_4",
+        "wc_5"
+      ]
+    },
+    "fixPer": {
+      "count": 16,
+      "examples": [
+        "wc_0",
+        "wc_4",
+        "wc_5"
+      ]
+    },
+    "charge": {
+      "count": 7,
+      "examples": [
+        "wc_2",
+        "wc_6",
+        "rc_6"
+      ]
+    },
+    "spdDice": {
+      "count": 3,
+      "examples": [
+        "rc_4",
+        "rc_8",
+        "ap_6"
+      ]
+    },
+    "sinkDmg": {
+      "count": 1,
+      "examples": [
+        "sk_5"
+      ]
+    },
+    "nailBurst": {
+      "count": 4,
+      "examples": [
+        "nl_6",
+        "nl_7",
+        "nl_8"
+      ]
+    },
+    "needBlack": {
+      "count": 1,
+      "examples": [
+        "kg_blade"
+      ]
+    },
+    "ignoreEva": {
+      "count": 1,
+      "examples": [
+        "kg_blade"
+      ]
+    },
+    "flesh": {
+      "count": 1,
+      "examples": [
+        "bl_flesh"
+      ]
+    },
+    "pierce": {
+      "count": 1,
+      "examples": [
+        "bl_bone"
+      ]
+    },
+    "fsDice": {
+      "count": 1,
+      "examples": [
+        "aw_wedge"
+      ]
+    },
+    "cloudGain": {
+      "count": 4,
+      "examples": [
+        "kp_1",
+        "kp_2",
+        "kp_5"
+      ]
+    }
+  }
+}

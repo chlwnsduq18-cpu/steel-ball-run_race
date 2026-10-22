@@ -1,0 +1,199 @@
+
+/* Shared portrait layout. Inventory uses rows; only actionable content has a box. */
+:root{color-scheme:dark;--page:#10100e;--bg:#191813;--panel:#242219;--line:#494236;--muted:#c3b9a9;--ink:#f4eee3;--gold:#e2c18c;--purple:#cbb482;--red:#f0aaa0;--green:#b8cda3;--inverse:#241d12;--selected:#393124;--result:#2a251c;--speech-bg:#f1eadc;--speech-ink:#211a12;font:15px/1.65 system-ui,'Malgun Gothic',sans-serif}
+:root[data-theme="paper"]{color-scheme:light;--page:#ded5c3;--bg:#f6f0e4;--panel:#fffaf1;--line:#c6b9a4;--muted:#625a4c;--ink:#27231d;--gold:#78502a;--purple:#76552d;--red:#a33f32;--green:#3f683b;--inverse:#fffaf1;--selected:#eee0c8;--result:#ede2d0;--speech-bg:#fffaf1;--speech-ink:#27231d}
+:root[data-theme="ink"]{color-scheme:dark;--page:#08090a;--bg:#111315;--panel:#1b1e21;--line:#454b51;--muted:#b2bac3;--ink:#f5f6f7;--gold:#e5e9ef;--purple:#c2ccd7;--red:#ffb6ae;--green:#b7d8c5;--inverse:#151719;--selected:#30363d;--result:#20252a;--speech-bg:#f5f6f7;--speech-ink:#111315}
+*{box-sizing:border-box}body{margin:0;background:var(--page);color:var(--ink);display:grid;place-items:center;min-height:100svh}
+button,input,select{font:inherit}button{background:var(--panel);color:inherit;border:1px solid var(--line);border-radius:5px;min-height:44px;padding:10px 14px;cursor:pointer;touch-action:manipulation}
+button:hover{border-color:var(--gold)}button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+button:disabled{opacity:.4;cursor:default}input,select{background:var(--panel);color:var(--ink);border:1px solid var(--line);border-radius:5px;padding:10px 12px;min-width:0}
+.primary{background:var(--gold);border-color:var(--gold);color:var(--inverse);font-weight:700}.quiet{background:none}a{color:var(--gold)}h1,h2,h3,p{margin:0}h1{font:700 26px/1.5 Georgia,'Batang',serif}h2{font:700 21px/1.5 Georgia,'Batang',serif}h3{font-size:15px}
+.frame{width:min(100%,720px);height:100dvh;max-height:940px;padding:max(16px,env(safe-area-inset-top)) 22px max(12px,env(safe-area-inset-bottom));background:var(--bg);display:flex;flex-direction:column;gap:14px;overflow:hidden;min-width:0}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px;flex:none}.brand{font:700 21px/1.3 Georgia,'Batang',serif}.brand small{display:block;font:10px/1.8 system-ui;letter-spacing:.16em;color:var(--gold)}header button{min-height:40px;padding:7px 10px;font-size:12px;border-color:transparent}
+.row{display:flex;align-items:center;justify-content:space-between;gap:10px;min-width:0}.row>b{min-width:0;overflow-wrap:anywhere}.eyebrow{font-size:11px;letter-spacing:.06em;color:var(--gold)}.muted{font-size:12px;color:var(--muted)}.gold{color:var(--gold)}
+.route{flex:none}.route-line{display:flex;gap:5px;margin-top:8px}.route-line span{height:2px;flex:1;background:var(--line)}.route-line .done{background:var(--gold)}.route-line .current{background:var(--purple)}
+.player{flex:none;border-bottom:1px solid var(--line);padding:0 0 12px}.player>.row>b{font-size:15px}.hp{height:4px;background:var(--line);border-radius:2px;margin:8px 0;overflow:hidden}.hp i{display:block;height:100%;background:var(--green);transition:width .25s}
+.stats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:8px 0}.stats span{font-size:12px;color:var(--muted)}.stats b{font-size:20px;color:var(--ink);margin-left:9px}.shop-link{font-size:12px;min-height:36px;padding:5px 8px;border-color:transparent;color:var(--gold)}
+.stand-summary{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;color:var(--muted);font-size:12px;line-height:1.6;margin-top:6px}.stand-summary b{color:var(--purple);font-size:12px}
+.journey-body{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;display:flex;flex-direction:column;gap:16px;flex:1;padding:2px 2px 8px}
+.scene{min-height:0;display:flex;flex-direction:column;gap:12px;overflow:auto;scrollbar-width:thin;flex:1}.journey-body>.scene{flex:none;overflow:visible}.scene p{font-size:14px;line-height:1.8;word-break:keep-all;overflow-wrap:anywhere}.scene .muted{font-size:12px}.narrative{white-space:pre-line;color:var(--ink)}.scene .chapter{margin-bottom:4px}
+.previous-outcome{flex:none;min-width:0;margin:0;padding:8px 12px;background:var(--result);border:1px solid var(--line);border-radius:5px}.outcome-heading{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}.outcome-heading .eyebrow{font-size:11px;letter-spacing:0;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;color:var(--muted)}.outcome-open{font-size:11px;min-height:32px;padding:4px 6px;flex:none;border-color:transparent;background:none;color:var(--gold)}.previous-outcome .outcome-story{font-size:13px;line-height:1.6;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere}.previous-outcome .outcome-effects{font-size:12px;line-height:1.6;color:var(--gold);margin-top:3px;white-space:pre-line;display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden;overflow-wrap:anywhere}.previous-outcome .outcome-verdict{display:block;font-size:11px;line-height:1.6;color:var(--muted);margin-top:3px}.outcome-full{white-space:pre-line;overflow-wrap:anywhere}
+
+.actions{display:grid;gap:10px;flex:none}.actions .pair{display:grid;grid-template-columns:1fr 1fr;gap:10px}.event-choices button{text-align:left;white-space:normal;padding:12px 14px;min-width:0}.event-choices b{display:block;font-size:15px;font-weight:600;line-height:1.6;word-break:keep-all;overflow-wrap:anywhere}.event-choices small{display:block;margin-top:4px;font-size:12px;line-height:1.6;color:var(--muted)}
+footer{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--line);padding-top:10px;gap:10px;flex:none}footer button{min-height:44px;font-size:12px;padding:8px;border-color:transparent}.direct-dock button{flex:1}.rewardcard{border-left:2px solid var(--gold);padding:10px 14px;background:var(--panel)}.rewardcard p{font-size:13px}
+.entry{padding:12px 0;border-bottom:1px solid var(--line)}.entry p{white-space:pre-line}.entry button{min-height:44px;padding:7px 12px;font-size:12px}
+/* Sheets: one level, plain section headings, no nested card boxes. */
+dialog{background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:9px;width:min(460px,calc(100% - 24px));max-height:calc(100dvh - 32px);padding:20px;overflow-y:auto;scrollbar-gutter:stable;scrollbar-width:thin}dialog::backdrop{background:#07080cbd}
+.sheet-head{display:flex;align-items:center;justify-content:space-between;gap:12px;position:sticky;top:-20px;padding:10px 0 16px;background:var(--bg);z-index:2}.sheet-head h2{font-size:20px}.sheet-head button{font-size:12px;padding:8px 12px}
+#sheet-body{display:grid;gap:18px;min-width:0}#sheet-body p{font-size:13px;line-height:1.8;color:var(--muted)}.inventory-section{display:grid;gap:8px}.inventory-section h3{font-size:14px;color:var(--gold);margin-bottom:2px}.inventory-section h3 small{font-size:12px;margin-left:6px}.inventory-row{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:12px;padding:10px 0;border-bottom:1px solid var(--line)}.inventory-copy{min-width:0}.inventory-copy b,.experience-row b{font-size:15px;overflow-wrap:anywhere}.inventory-copy p,.experience-row p{margin-top:4px}.inventory-copy small{font-size:12px;color:var(--muted)}.equipment-slot>span{display:block;color:var(--muted);font-size:12px;margin-top:4px}.equipment-slot>.inventory-row{padding-top:4px}.experience-row{padding:12px 0;border-bottom:1px solid var(--line)}.inventory-section .stand-summary{margin:0}.inventory-section .stand-summary b{font-size:14px}.inventory-section .stand-summary span{font-size:12px}.inventory-section .stand-summary+p{margin-top:4px}.empty-slot{padding:8px 0}.identity-edit summary{font-size:13px;color:var(--purple);cursor:pointer;padding:10px 0}
+.stand-identity-fields{display:grid;gap:10px;min-width:0;flex:none}.stand-identity-fields label{display:grid;gap:4px;min-width:0;font-size:12px;color:var(--muted)}.stand-identity-fields input{width:100%;font-size:16px;min-height:44px}.stand-identity-fields small{font-size:11px}.identity-edit button{margin-top:12px;font-size:12px}.speed-options{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+/* One card per row; effect and action stay together. The dialog is the only scroll area. */
+.deck-editor{display:grid;gap:18px;min-width:0}.deck-summary>b{font-size:16px}.deck-summary>b>span{font-size:12px;color:var(--muted);font-weight:400}.deck-summary p{margin-top:4px}.deck-summary>button{margin-top:10px;font-size:12px}.deck-pane{min-width:0}.deck-pane h3{font-size:13px;color:var(--muted);margin-bottom:4px}.deck-list{display:grid;min-width:0}
+.deck-card{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line);min-width:0}.deck-card-copy{min-width:0}.deck-card-heading{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:baseline;gap:8px}.deck-card-heading b{font-size:15px;line-height:1.6;overflow-wrap:anywhere}.deck-card-heading span{font-size:11px;color:var(--muted);white-space:nowrap}.deck-card p{margin-top:4px;overflow-wrap:anywhere}.deck-card.swap-target{border-color:var(--gold)}.deck-card-tools{display:flex;gap:10px;margin-top:4px}.text-action{background:none;border:0;color:var(--muted);font-size:12px;min-height:36px;padding:4px 0}.text-action:hover{color:var(--gold)}.card-move{font-size:12px;min-width:48px;min-height:44px;padding:8px 10px;background:none;align-self:center}.deck-empty{padding:10px 0}
+
+/* Birth has its own height budget; it must not inherit the scrolling scene. */
+.frame.birth-view{height:auto;min-height:100dvh;max-height:none;overflow:visible;gap:12px}.birth-view .start{flex:1;min-height:0;gap:10px;overflow:visible;justify-content:center}
+.birth-start>div:first-child{flex:none}.birth-start h1{font-size:25px;line-height:1.4}.birth-name{display:grid;gap:4px;font-size:12px;color:var(--muted);flex:none}.birth-name input{width:100%;font-size:16px;min-height:44px;padding:8px 12px}
+.birth-table{display:grid;flex:none;min-width:0}.birth-row{display:grid;grid-template-columns:30px minmax(0,1fr) 35px;gap:10px;align-items:center;text-align:left;border:0;border-bottom:1px solid var(--line);border-radius:0;height:54px;min-height:54px;padding:6px 0;background:none;min-width:0}
+.birth-label{font-size:12px;color:var(--muted)}.birth-value{min-width:0}.birth-value>b{display:block;font-size:14px;line-height:1.5;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.birth-value>small{display:block;font-size:12px;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.rare{font-size:11px;color:var(--gold);font-weight:400;white-space:nowrap}.birth-die{text-align:center;color:var(--gold);font-size:20px;line-height:1.2}.birth-die>small{font-size:10px;display:block;color:var(--muted)}
+.birth-preview{flex:none;padding:0}.birth-preview .stats{margin:4px 0}.birth-preview .stats b{font-size:18px}.birth-stand-status{font-size:12px;line-height:1.6}.birth-identity summary{padding:2px 0;font-size:12px;line-height:1.6}.birth-identity .stand-identity-fields{margin:10px 0}
+.birth-start>.actions{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.birth-start>.actions>button{font-size:13px;padding:9px 7px;min-width:0;line-height:1.5;min-height:44px}.birth-start>.actions>button:first-child{grid-column:1/-1}.birth-start>.actions>button:nth-child(2):last-child{grid-column:1/-1}
+/* Expanding optional name fields uses the page, never a second scrollbar in the form. */
+body:has(.birth-identity[open]){align-items:start}.frame.birth-view:has(.birth-identity[open]){height:auto;max-height:none;min-height:100dvh;overflow:visible}.birth-view:has(.birth-identity[open]) .start{flex:none}
+@media(min-width:600px){.frame.birth-view{min-height:min(920px,calc(100dvh - 40px))}}
+@media(max-height:850px){.frame.birth-view{gap:10px;padding-top:12px;padding-bottom:10px}.birth-view .brand small{display:none}.birth-view .start{gap:8px}.birth-start h1{font-size:23px}.birth-row{height:50px;min-height:50px;padding:4px 0}.birth-preview .stats{margin:2px 0}.birth-view footer{padding-top:7px}}
+@media(max-height:700px){body:has(.birth-view){align-items:start}.frame.birth-view{height:auto;max-height:none;min-height:100dvh;overflow:visible}.birth-view .start{flex:none}}
+
+/* Combat retains sequential playback and the left/right comparison. */
+.battle{gap:10px}.combat-matchup{flex:none;min-width:0}.combatants{display:grid;grid-template-columns:minmax(0,1fr) 24px minmax(0,1fr);gap:8px}.combatant{min-width:0;padding:10px;background:var(--panel);border-radius:5px;display:flex;flex-direction:column}.combatant-label{font-size:11px;color:var(--green)}.enemy-side .combatant-label{color:var(--red)}.combatant-name{font-size:14px;line-height:1.5;margin:3px 0 6px;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:3em}.combatant-hp{font-size:12px;color:var(--muted)}.combatant .stats{gap:4px;margin:5px 0}.combatant .stats span{display:flex;flex-direction:column;align-items:center;font-size:11px}.combatant .stats b{margin:0;font-size:18px}.enemy-side .hp i{background:var(--red)}.combat-vs{align-self:center;text-align:center;font:700 13px Georgia,serif;color:var(--gold)}.enemy-intent{font-size:12px;color:var(--muted);line-height:1.7;margin-top:8px}.enemy-intent>span{color:var(--red);margin-right:8px}.turn-bonus{font-size:10px;color:var(--green)}
+.pills{display:flex;gap:4px;flex-wrap:wrap;max-height:64px;overflow:auto}.pills:empty{display:none}.pill{font-size:11px;min-height:28px;padding:3px 6px;color:var(--purple);border-color:var(--line);background:var(--panel)}.pill.bad{color:var(--red);background:var(--panel)}.turnbar{display:flex;justify-content:space-between;gap:8px;flex:none;font-size:12px;color:var(--gold)}.hand{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;flex:none}.card{position:relative;display:flex;flex-direction:column;gap:6px;min-height:108px;padding:10px;text-align:left;min-width:0}.card .name{font-size:13px;font-weight:600;line-height:1.5;padding-right:20px;overflow-wrap:anywhere}.cost{position:absolute;right:8px;top:8px;border:1px solid var(--line);border-radius:50%;width:20px;height:20px;text-align:center;line-height:18px;font-size:11px;color:var(--gold)}.card .desc{font-size:12px;line-height:1.6;color:var(--muted);overflow-wrap:anywhere}.card.selected{border-color:var(--gold);background:var(--selected);box-shadow:inset 0 0 0 1px var(--gold)}.battle-log{font-size:13px;color:var(--muted);line-height:1.8;white-space:pre-line;overflow:auto}.log-button{float:right;font-size:11px;min-height:32px;padding:5px 8px;margin-left:8px}.combat-supplies{display:flex;gap:8px;flex:none;position:relative;padding-top:18px}.combat-supplies>span{position:absolute;top:0;font-size:11px;color:var(--muted)}.combat-supplies button{flex:1;min-width:0;font-size:12px;padding:6px}.combat-supplies small{display:block;font-size:11px}
+.speech{border:1px solid var(--ink);border-radius:40% 40% 35% 8%;background:var(--speech-bg);color:var(--speech-ink);padding:13px 18px;max-width:90%;font-size:15px;font-weight:800;margin:3px 0;animation:appear .25s ease-out}.speech small{display:block;font-size:11px;opacity:.6;font-weight:400}.playback-stage{display:flex;flex-direction:column;gap:12px;min-height:0;padding:12px 0;flex:1}.playback-stage h3{font-size:15px}.combat-dice{display:grid;grid-template-columns:1fr 1fr;gap:12px}.combat-dice>div{display:flex;flex-direction:column;align-items:center;background:var(--panel);padding:10px 6px;border-radius:5px}.combat-dice small{font-size:11px;color:var(--muted);text-align:center}.combat-dice b{font:700 32px/1.4 Georgia,serif;color:var(--gold)}.combat-dice span{font-size:12px}.rolling b{animation:die-pulse .22s ease-in-out infinite alternate}.verdict{font-size:14px;color:var(--gold)}.combat-detail,.scene p.combat-detail,.scene p.damage-dice{font-size:12px;line-height:1.7;color:var(--muted);white-space:pre-line}.action-order{display:flex;gap:6px;overflow-x:auto;flex:none;padding:4px 0;scrollbar-width:thin}.action-order span{white-space:nowrap;font-size:11px;border-bottom:2px solid var(--line);padding:4px 5px;color:var(--muted)}.action-order .current{border-color:var(--gold);color:var(--gold)}.action-order .done{opacity:.5}
+.impact{animation:combat-impact .35s ease-out}.acting{animation:combat-act .35s ease-out}.dodging{animation:combat-dodge .4s ease-out}.guarding{animation:combat-guard .4s ease-out}
+@keyframes appear{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}@keyframes die-pulse{to{opacity:.4;transform:translateY(-2px)}}@keyframes combat-impact{25%{transform:translateX(-4px);background:#673a45}65%{transform:translateX(3px)}}@keyframes combat-act{50%{transform:translateY(-3px);border-color:var(--gold)}}@keyframes combat-dodge{50%{transform:translateX(9px);opacity:.6}}@keyframes combat-guard{50%{box-shadow:inset 0 0 0 2px var(--purple)}}
+#toast{position:fixed;bottom:max(24px,env(safe-area-inset-bottom));left:50%;transform:translateX(-50%);width:max-content;max-width:calc(100% - 32px);background:var(--speech-bg);color:var(--speech-ink);border-radius:5px;padding:10px 16px;font-size:13px;opacity:0;pointer-events:none;transition:opacity .2s;z-index:4}#toast.show{opacity:1}.loading{margin:auto;color:var(--muted)}
+@media(min-width:600px){.frame{height:min(920px,calc(100dvh - 40px));border:1px solid var(--line);border-radius:9px;padding:22px 26px;box-shadow:0 14px 70px #0005}}
+@media(max-width:359px){.frame{padding-left:16px;padding-right:16px}.combatants{gap:4px;grid-template-columns:minmax(0,1fr) 20px minmax(0,1fr)}.combatant{padding:8px}.combatant-name{font-size:13px}}
+@media(max-height:760px){.frame{gap:10px;padding-top:12px;padding-bottom:8px}.brand small{display:none}.player{padding-bottom:8px}.player .stats{margin:4px 0}.battle .combatant{padding:7px}.battle .combatant-name{font-size:13px;margin:2px 0}.battle .combatant .stats b{font-size:16px}.battle .card{min-height:90px;padding:8px}.battle .card .desc{font-size:11px}.battle .scene{gap:8px}.battle .hand{gap:8px}.battle .hp{margin:5px 0}.battle footer{padding-top:6px}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+
+/* Current event scrolls independently below the compact result. */
+header>div:last-child{display:flex;gap:2px}.direct-dock button{font-size:13px;min-width:0;padding:8px 4px}.current-event .event-heading{padding:2px 0 8px;border-bottom:1px solid var(--line)}.current-event h2{font-size:24px;line-height:1.45;margin-top:4px}.current-event .eyebrow{color:var(--purple)}.current-event .narrative{font-size:15px;line-height:1.8}.event-choices{grid-template-columns:1fr;gap:9px}.event-choices button{padding:10px 12px}.event-choices small{margin-top:3px}.event-cost{font-size:11px}.birth-stand-status:empty{display:none}
+
+/* Narrative and instructions have separate markup and typography. */
+.system-guide{flex:none;border-left:2px solid var(--line);padding:4px 10px;color:var(--muted)}
+.system-guide summary{cursor:pointer;font-size:12px;line-height:1.7;padding:4px 0;color:var(--gold)}
+.system-guide p{font-size:12px;line-height:1.7;margin-top:6px;overflow-wrap:anywhere}
+/* Give the reading/controls area its own space; fixed siblings must not collapse it. */
+.race-layout,.battle-layout{display:flex;flex-direction:column;gap:14px;flex:1;min-height:0;min-width:0}
+.race-sidebar{display:flex;flex-direction:column;gap:12px;flex:none;min-width:0}
+.battle-overview{flex:none;min-width:0}
+.battle-controls{display:flex;flex-direction:column;gap:12px;flex:1;min-height:0;min-width:0;overflow-y:auto;scrollbar-width:thin;padding:2px 2px 8px;overscroll-behavior:contain}
+.battle-controls>.scene{flex:none;overflow:visible;min-height:auto}
+.battle-controls .playback-stage{flex:none}
+.shop-section{min-width:0}.shop-grid{grid-template-columns:minmax(0,1fr)}
+/* All viewports keep one vertical flow. Larger screens gain a moderate reading width. */
+@media(min-width:600px){
+ .frame{width:min(720px,calc(100% - 40px))}
+ dialog{width:min(640px,calc(100% - 40px))}
+}
+
+.event-actor{display:block;font-size:12px;color:var(--muted);margin-top:4px}
+
+/* Compact header and achievement choices keep the existing single vertical flow. */
+header>div:last-child{display:flex;flex-wrap:wrap;justify-content:flex-end;min-width:0}.brand{flex-shrink:0}.achievement-start{font-size:12px;color:var(--gold)}.achievement-locked{color:var(--muted)}
+
+/* Short viewports (small laptops, landscape phones, zoom) use one page scroll.
+   Keep text and buttons readable instead of squeezing the scene down to zero. */
+@media(max-height:740px){
+ body{align-items:start}
+ .frame:not(.birth-view){height:auto;min-height:100dvh;max-height:none;overflow:visible}
+ .frame:not(.birth-view) .race-layout,.frame:not(.birth-view) .battle-layout{flex:none}
+ .journey-body,.battle-controls{flex:none;min-height:auto;overflow:visible;overscroll-behavior:auto}
+ .journey-body>.scene,.battle-controls>.scene{min-height:auto;overflow:visible}
+ .frame:not(.birth-view)>footer{position:sticky;bottom:0;z-index:2;background:var(--bg);margin-top:auto;padding-bottom:max(6px,env(safe-area-inset-bottom));box-shadow:0 -8px 12px var(--bg)}
+ .battle .card{min-height:100px}
+ .battle .card .desc{font-size:12px}
+}
+/* Narrow viewports share the same flow, with fluid gutters and wrapping controls. */
+@media(max-width:599px){
+ .frame{padding-left:clamp(12px,4vw,22px);padding-right:clamp(12px,4vw,22px)}
+ dialog{width:calc(100% - 20px);max-width:none;padding:14px;max-height:calc(100dvh - 20px)}
+ .sheet-head{top:-14px;gap:8px;padding-bottom:12px}
+ .sheet-head h2{min-width:0;overflow-wrap:anywhere}
+ .sheet-head button{flex:none}
+ header{gap:8px}.brand{font-size:clamp(18px,4.5vw,21px)}
+ header button{padding-left:8px;padding-right:8px}
+ .player>.row{flex-wrap:wrap}
+ .route .row{align-items:baseline;flex-wrap:wrap;gap:2px 8px}
+ .inventory-row,.deck-card{gap:8px}
+ .deck-card-heading{grid-template-columns:minmax(0,1fr);gap:0}
+ .shop-entry-heading{gap:8px}
+ .speed-options{gap:6px}.speed-options button{padding:8px 5px}
+}
+
+/* Credits remain visible below the start controls, with natural wrapping. */
+.birth-view>.birth-footer{display:flex;flex-direction:column;align-items:stretch;gap:10px}
+.birth-footer-actions{display:flex;align-items:center;justify-content:space-between;gap:8px;min-width:0}
+.birth-credits{font-size:11px;line-height:1.7;color:var(--muted);overflow-wrap:anywhere;text-align:left}
+.birth-credits p+p{margin-top:4px}.birth-credits a{color:var(--muted);text-underline-offset:3px}
+@media(max-width:420px){.birth-footer-actions{flex-wrap:wrap;gap:4px 12px}.birth-footer-actions>.muted{flex-basis:100%}.birth-footer-actions button{flex:1}}
+
+/* Secondary tools live in one menu; release notes use the dialog scroll. */
+header>.header-controls{flex-wrap:nowrap;gap:4px}
+.header-controls button{min-height:44px;white-space:nowrap}
+.menu-options{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.menu-options button{min-height:44px;text-align:left;padding:12px}
+.patch-intro,.patch-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;min-width:0}
+.patch-intro button{min-height:44px}
+.patch-list{display:grid;gap:20px;min-width:0}
+.patch-entry{border-top:1px solid var(--line);padding-top:16px;min-width:0;overflow-wrap:anywhere}
+.patch-heading{flex-wrap:wrap;gap:4px 12px}
+.patch-heading h3{font-size:16px;color:var(--gold)}
+.patch-heading h3 small{font-size:11px;margin-left:6px;color:var(--muted)}
+.patch-heading time{font-size:12px;color:var(--muted)}
+.patch-entry h4{font-size:14px;margin-top:8px;line-height:1.6}
+.patch-entry ul{padding-left:20px;margin:10px 0 0;display:grid;gap:8px;font-size:13px;line-height:1.8;color:var(--muted)}
+
+/* Consistent, compact commerce. Only the dialog owns its scrollbar. */
+.settings-section{display:grid;gap:12px}.settings-section h3{font-size:14px;color:var(--ink)}
+.theme-options{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+.theme-options button{display:grid;gap:7px;padding:10px;text-align:left;min-width:0}
+.theme-options b{font-size:13px}.theme-options small{font-size:11px;line-height:1.5;color:var(--muted)}
+.theme-options .selected{border-color:var(--gold);background:var(--selected);box-shadow:inset 0 0 0 1px var(--gold)}
+.theme-swatch{height:24px;border:1px solid var(--line);border-radius:3px;display:block}
+.theme-swatch.dusk{background:linear-gradient(90deg,#191813 66%,#e2c18c 66%)}
+.theme-swatch.paper{background:linear-gradient(90deg,#f6f0e4 66%,#78502a 66%)}
+.theme-swatch.ink{background:linear-gradient(90deg,#111315 66%,#e5e9ef 66%)}
+.shop-dialog #sheet-body{gap:10px}.shop-dialog .sheet-head{padding-bottom:12px}
+.shop-topline{display:flex;justify-content:space-between;align-items:center;gap:12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.shop-topline>span{font-size:12px;color:var(--muted)}.shop-topline strong{font-size:21px;font-variant-numeric:tabular-nums;color:var(--gold)}
+#sheet-body .shop-provider{font-size:12px;line-height:1.5;margin:0;color:var(--muted)}
+.shop-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-bottom:1px solid var(--line)}
+.shop-tabs button{background:none;border:0;border-radius:0;border-bottom:2px solid transparent;min-height:44px;padding:8px;font-size:14px;color:var(--muted)}
+.shop-tabs .active{border-bottom-color:var(--gold);color:var(--ink);font-weight:700}
+.shop-list{min-width:0}.shop-row{display:grid;grid-template-columns:minmax(0,1fr) 88px;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid var(--line);min-width:0}
+.shop-copy{min-width:0}.shop-item-title{display:flex;flex-wrap:wrap;align-items:center;gap:5px 8px}
+.shop-item-title>b{font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.slot-tag{font-size:10px;line-height:1.6;color:var(--gold);border:1px solid var(--line);border-radius:3px;padding:1px 5px;white-space:nowrap}
+#sheet-body .shop-copy p{font-size:13px;line-height:1.65;color:var(--ink);margin-top:5px;overflow-wrap:anywhere}
+.shop-note,.shop-status{display:block;font-size:11px;line-height:1.6;margin-top:4px;overflow-wrap:anywhere}.shop-note{color:var(--muted)}.shop-status{color:var(--red)}
+.shop-buy{display:grid;justify-items:stretch;gap:5px;min-width:0}.purchase{display:grid;gap:1px;padding:7px 5px;min-height:54px;text-align:center}
+.purchase>b{font-size:16px;line-height:1.4;color:var(--gold);font-variant-numeric:tabular-nums}.purchase>span{font-size:11px;line-height:1.5}
+.purchase:disabled{opacity:.6}.shop-buy .text-action{min-height:32px;padding:4px;font-size:12px}
+.shop-result{font-size:12px;line-height:1.7;background:var(--result);border-left:2px solid var(--gold);padding:9px 11px;overflow-wrap:anywhere}
+.shop-info{font-size:12px;color:var(--muted);padding-top:4px}.shop-info summary{cursor:pointer;min-height:32px;padding:4px 0;color:var(--gold)}
+#sheet-body .shop-info p{font-size:12px;line-height:1.7;margin-top:6px}
+.shop-empty{padding:18px 0}.inventory-copy .equipment-location{color:var(--gold)!important;font-size:12px!important}
+@media(max-width:359px){.shop-row{grid-template-columns:minmax(0,1fr) 76px;gap:9px}.shop-item-title>b{font-size:13px}.theme-options{gap:5px}.theme-options button{padding:8px}.theme-options small{font-size:10px}}
+
+/* Completion and post-race record retain the vertical responsive layout. */
+.finish-rank{display:flex;flex-direction:column;align-items:center;gap:8px;padding:24px 16px;margin:16px 0;border-block:1px solid var(--line);text-align:center}.finish-rank strong{font-size:clamp(2.5rem,8vw,4rem);line-height:1.1;color:var(--gold)}.finish-rank small{opacity:.72}.finish-gate .actions{display:grid;grid-template-columns:1fr 1fr;gap:8px}.finish-gate .actions>:first-child{grid-column:1/-1}.ending-record{margin-top:24px;padding-top:16px;border-top:1px solid var(--line)}.ending-record h2{font-size:1.1rem}.ending-record details{margin-top:12px;border-top:1px solid var(--line);padding:12px 0}.ending-record summary{cursor:pointer}.ending-card{display:flex;flex-direction:column;gap:4px;padding:10px 0;border-bottom:1px solid var(--line)}.ending-card span{font-size:.85rem;opacity:.8}
+
+/* A settled fight stays readable while the next event is already available. */
+.battle-result{flex:none;min-width:0;padding:12px 14px;background:var(--result);border:1px solid var(--gold);border-radius:5px;overflow-wrap:anywhere}
+.battle-result h3{font-size:16px;line-height:1.5;margin:4px 0 8px}.battle-result h3 small{display:block;font-size:11px;font-weight:400;color:var(--muted)}
+.battle-result .speech{max-width:100%;width:fit-content;margin:8px 0;padding:10px 14px;border-radius:16px 16px 16px 3px;white-space:pre-line}
+.battle-result-story{font-size:13px;line-height:1.65}.battle-result-gains{font-size:12px;color:var(--gold);line-height:1.7;margin-top:6px;white-space:pre-line}
+.battle-result>.muted{display:block;font-size:11px;margin-top:4px}.battle-result .outcome-full{font-size:13px;line-height:1.8;border-top:1px solid var(--line);margin-top:12px;padding-top:10px}
+
+.funds-notice{padding:12px 16px;border:1px solid var(--accent);border-radius:10px;margin:8px 0;display:flex;gap:12px;align-items:center}.funds-notice p{margin:0;flex:1;overflow-wrap:anywhere}.funds-notice button{flex-shrink:0}
+
+.companion-summary{margin:6px 0 0;color:var(--muted);font-size:.8rem}.companion-summary button{font:inherit}.companion-speech{border-style:dashed}
+
+.shop-tabs-rare{grid-template-columns:repeat(2,minmax(0,1fr))}
+
+/* Compact equipment filters and explicit sale selection. */
+.inventory-tabs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;border-bottom:1px solid var(--line)}
+.inventory-tabs button{background:none;border:0;border-bottom:2px solid transparent;border-radius:0;font-size:13px;min-height:44px;padding:7px 4px;color:var(--muted)}
+.inventory-tabs .active{color:var(--ink);border-bottom-color:var(--gold)}
+.stored-slot[hidden]{display:none}.inventory-heading{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.inventory-actions{display:grid;gap:4px;min-width:64px}.inventory-actions button{min-height:40px;padding:6px;font-size:12px}
+.inventory-copy{min-width:0}.inventory-copy b,.inventory-copy p{overflow-wrap:anywhere}
+#sheet-body .inventory-copy p{font-size:12px;line-height:1.6;margin-top:3px}
+.inventory-row{align-items:center;gap:10px;padding:10px 0}.equipment-slot{min-width:0}
+.inferior-items>summary,.quest-items>summary,.supply-items>summary{cursor:pointer;min-height:44px;padding:12px 0;font-size:13px;color:var(--muted)}
+.sale-tools{display:flex;flex-wrap:wrap;gap:6px;padding:8px 0}.sale-tools button{min-height:40px;font-size:12px}.sale-tools button:last-child{flex:1}
+.sale-check{min-width:44px;min-height:40px;padding:5px;font-size:11px}.sale-check[aria-pressed="true"]{border-color:var(--gold);background:var(--selected)}
+
+.ending-image-actions{margin:24px 0;padding:20px 0;border-top:1px solid currentColor}.ending-image-actions .actions{flex-wrap:wrap}.ending-image-actions p{font-size:.9rem;opacity:.8;line-height:1.6}

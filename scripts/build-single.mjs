@@ -1,0 +1,12 @@
+import fs from 'node:fs';
+const read=p=>fs.readFileSync(new URL(p,new URL('../',import.meta.url)),'utf8');
+const strip=s=>s.replace(/^import .*;\r?\n/gm,'').replace(/^export /gm,'');
+let app=strip(read('dist/src/app.js'));
+const fetchStart=app.indexOf('try{[data]=await Promise.all('),fetchEnd=app.indexOf('race=createRace(data,runtime);',fetchStart);
+if(fetchStart<0||fetchEnd<0)throw Error('Unable to locate loader');
+app=app.slice(0,fetchStart)+'try{data=INLINE_DATA;const runtime=INLINE_RUNTIME;'+app.slice(fetchEnd);
+const js=['// Single-file offline build. Engine based on cityyear-fanmade/city-year.',strip(read('dist/src/ending-image.js')),strip(read('dist/src/hidden-routes.js')),strip(read('dist/src/choice-memory.js')),strip(read('dist/src/effect-conditions.js')),strip(read('dist/src/preferences.js')),strip(read('dist/src/patch-notes.js')),strip(read('dist/src/weapon-dice.js')),strip(read('dist/src/player-support.js')),strip(read('dist/src/config.js')),strip(read('dist/src/companions.js')),strip(read('dist/src/engine.js')),strip(read('dist/src/dedicated.js')),strip(read('dist/src/stand.js')),strip(read('dist/src/stand-ui.js')),strip(read('dist/src/birth.js')),strip(read('dist/src/birth-ui.js')),strip(read('dist/src/combat-results.js')),strip(read('dist/src/journey-ui.js')),strip(read('dist/src/deck-ui.js')),strip(read('dist/src/shop-ui.js')),strip(read('dist/src/inventory-ui.js')),strip(read('dist/src/progression.js')),strip(read('dist/src/economy.js')),strip(read('dist/src/loot.js')),strip(read('dist/src/opponents.js')),strip(read('dist/src/achievements.js')),strip(read('dist/src/player-quotes.js')),strip(read('dist/src/battle-quotes.js')),strip(read('dist/src/followups.js')),strip(read('dist/src/save-state.js')),strip(read('dist/src/hidden-ending.js')),strip(read('dist/src/race.js')),strip(read('dist/src/playback.js')),'const INLINE_DATA='+JSON.stringify(JSON.parse(read('dist/game-data.json')))+';', 'const INLINE_RUNTIME='+JSON.stringify(JSON.parse(read('dist/runtime-base.json')))+';',app].join('\n');
+new Function(js);
+const html=read('dist/index.html').replace('<link rel="stylesheet" href="style.css">',()=>'<style>'+read('dist/style.css')+'</style>').replace('<script type="module" src="src/app.js"></script>',()=>'<script type="module">'+js.replace(/<\/script/gi,'<\\/script')+'</script>');
+fs.writeFileSync(new URL('dist/sbr-race.html',new URL('../',import.meta.url)),html);
+console.log(JSON.stringify({standalone:'dist/sbr-race.html',bytes:Buffer.byteLength(html)}));

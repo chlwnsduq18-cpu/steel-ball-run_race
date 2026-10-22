@@ -1,0 +1,1671 @@
+{
+  "sourceCommit": "6b5048658c615de85f290380a06e3d9de5a7d2d2",
+  "states": {
+    "steel": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "steel",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "steel",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다."
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 32,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {},
+        "deck": [
+          "sbr_steel_prepare",
+          "sbr_steel_throw",
+          "sbr_steel_guard",
+          "sbr_steel_recall",
+          "sbr_steel_joint"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "체펠리류 철구 계승자"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver"
+      ],
+      "itemLevels": {},
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "satellite": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "satellite",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "satellite",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다."
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {},
+        "deck": [
+          "sbr_sat_ready",
+          "sbr_sat_shot",
+          "sbr_sat_wave",
+          "sbr_sat_flank",
+          "sbr_sat_finish"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "렉킹 볼 계승자"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver"
+      ],
+      "itemLevels": {},
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "hamon": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "hamon",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "hamon",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다."
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {},
+        "deck": [
+          "sbr_ham_breathe",
+          "sbr_ham_punch",
+          "sbr_ham_flow",
+          "sbr_ham_heal",
+          "sbr_ham_overdrive"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "파문 수련자"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver"
+      ],
+      "itemLevels": {},
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "vampire": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "vampire",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "vampire",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다."
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {},
+        "deck": [
+          "sbr_vamp_bite",
+          "sbr_vamp_claw",
+          "sbr_vamp_regen",
+          "sbr_vamp_brace",
+          "sbr_vamp_feast",
+          "sbr_vamp_bite"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "돌가면의 흡혈귀"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver"
+      ],
+      "itemLevels": {},
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "pillar": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "pillar",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "pillar",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다."
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {},
+        "deck": [
+          "sbr_pillar_shift",
+          "sbr_pillar_strike",
+          "sbr_pillar_slide",
+          "sbr_pillar_combo",
+          "sbr_pillar_crush"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "기둥 속 사내 계열의 신체 변형"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver"
+      ],
+      "itemLevels": {},
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "sword": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "sword",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "sword",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 검에 깃든 스탠드"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 검에 깃든 스탠드",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_sword_observe",
+          "sbr_stand_sword_0",
+          "sbr_sword_slash",
+          "sbr_sword_guard",
+          "sbr_sword_finish"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "아누비스신 계열의 검 소유자"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_sword"
+      ],
+      "itemLevels": {
+        "stand_sword": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "sword",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "native",
+        "packGranted": true
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "thread": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "thread",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "thread",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 실로 풀리는 스탠드"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 실로 풀리는 스탠드",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 14,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_thread_unravel",
+          "sbr_stand_thread_0",
+          "sbr_thread_evade",
+          "sbr_thread_join",
+          "sbr_thread_rush"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "신체를 실로 바꾸는 스탠드 사용자"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_thread"
+      ],
+      "itemLevels": {
+        "stand_thread": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "thread",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "native",
+        "packGranted": true
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "colony": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "colony",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "colony",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 군체형 스탠드"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 군체형 스탠드",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_colony_water",
+          "sbr_stand_colony_0",
+          "sbr_colony_split",
+          "sbr_colony_restore",
+          "sbr_colony_barrage",
+          "sbr_colony_shot"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "플랑크톤 군체생명체"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_colony"
+      ],
+      "itemLevels": {
+        "stand_colony": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "colony",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "native",
+        "packGranted": true
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "pistols": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "pistols",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "pistols",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 탄환을 이끄는 스탠드"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 탄환을 이끄는 스탠드",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 8,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_pistol_position",
+          "sbr_stand_pistols_0",
+          "sbr_pistol_bounce",
+          "sbr_pistol_reload",
+          "sbr_pistol_volley"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "섹스 피스톨즈 계열의 탄도 조작"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_pistols"
+      ],
+      "itemLevels": {
+        "stand_pistols": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "pistols",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "native",
+        "packGranted": true
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "time": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "time",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "version": 2
+      },
+      "name": "기존 참가자",
+      "origin": "time",
+      "achievementDeck": null,
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 시간에 간섭하는 스탠드"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 시간에 간섭하는 스탠드",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 28,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_time_stop",
+          "sbr_time_prepare",
+          "sbr_stand_time_0",
+          "sbr_time_place",
+          "sbr_time_finish"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "시간정지형 스탠드 사용자"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "기존 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_time"
+      ],
+      "itemLevels": {
+        "stand_time": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "time",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "native",
+        "packGranted": true
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "achievement_tusk": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "ranch",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "achievementDeck": "tusk",
+        "version": 2
+      },
+      "name": "이전 업적 참가자",
+      "origin": "ranch",
+      "achievementDeck": "tusk",
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 터스크"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · 터스크",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 30,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_route_tusk_0_0",
+          "sbr_route_tusk_1_0",
+          "sbr_route_tusk_2_0",
+          "sbr_route_tusk_3_0",
+          "sbr_route_tusk_4_0"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "목장 출신"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "이전 업적 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_route_tusk"
+      ],
+      "itemLevels": {
+        "stand_route_tusk": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "route_tusk",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "optional",
+        "packGranted": true
+      },
+      "deckGrowth": {
+        "deck": "tusk",
+        "stage": 0,
+        "legacy": false
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "achievement_world": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "ranch",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "achievementDeck": "world",
+        "version": 2
+      },
+      "name": "이전 업적 참가자",
+      "origin": "ranch",
+      "achievementDeck": "world",
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · THE WORLD"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · THE WORLD",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 30,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_route_world_0_0",
+          "sbr_route_world_1_0",
+          "sbr_route_world_2_0",
+          "sbr_route_world_3_0",
+          "sbr_route_world_4_0"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "목장 출신"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "이전 업적 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_route_world"
+      ],
+      "itemLevels": {
+        "stand_route_world": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "route_world",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "optional",
+        "packGranted": true
+      },
+      "deckGrowth": {
+        "deck": "world",
+        "stage": 0,
+        "legacy": false
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    },
+    "achievement_d4c": {
+      "v": 1,
+      "journeyVersion": 2,
+      "deckVersion": 1,
+      "birth": {
+        "origins": "ranch",
+        "talents": "steady",
+        "flaws": "slow",
+        "weapons": "revolver",
+        "achievementDeck": "d4c",
+        "version": 2
+      },
+      "name": "이전 업적 참가자",
+      "origin": "ranch",
+      "achievementDeck": "d4c",
+      "tick": 0,
+      "mode": "travel",
+      "seen": [],
+      "beaten": [],
+      "allies": [],
+      "relics": [],
+      "usedEvents": [],
+      "recentEvents": [],
+      "bossVisits": {},
+      "history": [
+        "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · D4C"
+      ],
+      "message": "출발 신호가 울렸다. 길 위의 선택과 대결이 당신의 레이스를 만들어 갈 것이다.\n스탠드 각성 상태 · D4C",
+      "ch": {
+        "stats": {
+          "maxHp": 80,
+          "atk": 30,
+          "eva": 10,
+          "spd": 4,
+          "check": 0,
+          "startBleed": 0,
+          "startBreath": 0,
+          "enemyHp": 0,
+          "dmin": 1,
+          "dminUp": 0,
+          "dr": 0,
+          "regen": 0,
+          "defUp": 0,
+          "adv": 0,
+          "extraD2": 0,
+          "dmgB": 0,
+          "burnHit": 0,
+          "pdie": 6,
+          "mindMax": 0,
+          "egoSight": 0,
+          "relicApt": 0
+        },
+        "hp": 80,
+        "money": 35,
+        "year": 1,
+        "gear": {},
+        "flags": {
+          "stand_awakened": true
+        },
+        "deck": [
+          "sbr_route_d4c_0_0",
+          "sbr_route_d4c_1_0",
+          "sbr_route_d4c_2_0",
+          "sbr_route_d4c_3_0",
+          "sbr_route_d4c_4_0"
+        ],
+        "side": [],
+        "relics": [],
+        "beaten": [],
+        "aff": null,
+        "o": {
+          "n": "목장 출신"
+        },
+        "mind": 30,
+        "innate": null,
+        "sbr": true,
+        "name": "이전 업적 참가자"
+      },
+      "combat": null,
+      "encounter": null,
+      "event": null,
+      "offer": null,
+      "items": [
+        "weapon_revolver",
+        "stand_route_d4c"
+      ],
+      "itemLevels": {
+        "stand_route_d4c": 0
+      },
+      "equipment": {
+        "weapon": "weapon_revolver"
+      },
+      "counters": {
+        "cards": 0,
+        "wins": 0
+      },
+      "flagTicks": {},
+      "routeResults": {},
+      "eventPools": {},
+      "eventPoolStage": {},
+      "spawned": {},
+      "serial": 0,
+      "basicWeaponVersion": 1,
+      "gearStats": {
+        "weapon": "weapon_revolver",
+        "dmin": 1
+      },
+      "equipmentInitialized": true,
+      "economy": {
+        "training": {},
+        "tuning": {},
+        "stock": {},
+        "buys": {},
+        "supplyRound": 0,
+        "market": {
+          "nextTick": 4,
+          "tick": null
+        },
+        "version": 1
+      },
+      "stand": {
+        "type": "route_d4c",
+        "level": 0,
+        "uses": 0,
+        "name": "",
+        "line": "",
+        "deckMode": "optional",
+        "packGranted": true
+      },
+      "deckGrowth": {
+        "deck": "d4c",
+        "stage": 0,
+        "legacy": false
+      },
+      "lootClaims": {},
+      "itemNames": {},
+      "lootVersion": 1
+    }
+  }
+}
