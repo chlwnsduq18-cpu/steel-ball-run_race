@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {activeEffects} from '../dist/src/progression.js';import {birthStand,standCard} from '../dist/src/stand.js';
-import {initialCharacter,pickBirthEntry} from '../dist/src/birth.js';import {replayFrame,advanceReplay} from '../dist/src/playback.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {activeEffects} from '../src/progression.js';import {birthStand,standCard} from '../src/stand.js';
+import {initialCharacter,pickBirthEntry} from '../src/birth.js';import {replayFrame,advanceReplay} from '../src/playback.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(origin='ranch',talents='steady')=>{const r=createRace(D,R,{rng:mulberry32(17)});r.start('각성 검사',{origins:origin,talents,flaws:'slow',weapons:'rifle'});return r;};
 const awaken=(r,type='special')=>{r.state.tick=8;r.state.mode='event';r.state.event='stand_palm';const e=D.events.find(e=>e.id==='stand_palm'),i=e.c.findIndex(c=>c.ok.fx.awakenStand===type);assert(i>=0);assert(r.chooseEvent(i));return r.state.stand;};

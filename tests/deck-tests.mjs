@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {initialCharacter} from '../dist/src/birth.js';import {CFG} from '../dist/src/config.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {initialCharacter} from '../src/birth.js';import {CFG} from '../src/config.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],metrics=[];let hands=0,turns=0,waiting=0;
 const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const setup=id=>({origins:id,talents:'steady',flaws:'slow',weapons:'rifle'});

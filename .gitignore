@@ -5,7 +5,13 @@
 !/package.json
 !/data/
 !/inputs/
-!/dist/
+!/index.html
+!/style.css
+!/game-data.json
+!/runtime-base.json
+!/sbr-race.html
+!/src/
+!/.nojekyll
 !/tests/
 !/fixtures/
 !/scripts/
@@ -23,7 +29,7 @@ node_modules/
 /docs/
 /reports/
 /review/
-/dist/boss-review.html
+/boss-review.html
 /.openai/
 /.env
 /.env.*

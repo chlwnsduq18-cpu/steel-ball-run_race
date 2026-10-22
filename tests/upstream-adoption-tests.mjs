@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {eventWeight,initializeChoiceMemory} from '../dist/src/choice-memory.js';
-import {equipmentScreen} from '../dist/src/inventory-ui.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {eventWeight,initializeChoiceMemory} from '../src/choice-memory.js';
+import {equipmentScreen} from '../src/inventory-ui.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const results=[];function test(n,f){try{f();results.push({n,ok:true});}catch(e){results.push({n,ok:false,error:e.stack});}}
 function make(){const r=createRace(D,R,{rng:mulberry32(420)});r.start('재회 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:'sabre'});return r;}
 function choose(r,id,i){r.state.mode='event';r.state.event=id;assert(r.chooseEvent(i),id);}

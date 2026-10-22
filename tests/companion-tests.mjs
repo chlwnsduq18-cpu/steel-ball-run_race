@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {resolveCompanionSupport,companionProfile,prepareCompanions,companionsScreen} from '../dist/src/companions.js';
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {resolveCompanionSupport,companionProfile,prepareCompanions,companionsScreen} from '../src/companions.js';
 import {validateCompanionData} from '../data/companions-data.mjs';import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(data=D){const r=createRace(data,R,{rng:()=>.999});r.start('지원 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:'revolver'});return r;}
 function fight(ids=[],stage=6){const r=make();r.state.allies=ids;r.state.companionId=ids[0]||null;r.state.tick=(stage-1)*8;r.restore(r.state);r.state.mode='encounter';r.state.encounter='ringo';assert(r.encounter('fight'));const C=r.state.combat;C.P.hp=C.P.maxHp=C.E.hp=C.E.maxHp=10000;C.P.light=10;C.P.hand=[];C.ePlan=[];return r;}

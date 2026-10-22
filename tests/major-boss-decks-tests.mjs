@@ -1,8 +1,8 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {opponentPlan} from '../dist/src/opponents.js';import {prepareEncounter} from './encounter-test-fixture.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {opponentPlan} from '../src/opponents.js';import {prepareEncounter} from './encounter-test-fixture.mjs';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const old=JSON.parse(fs.readFileSync('fixtures/major-boss-v033.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function fight(id,stage=9){const r=createRace(D,R,{rng:mulberry32(91)});r.start('주요 인물 검수',{origins:'time',talents:'steady',flaws:'weak_condition',weapons:'revolver'});const g=structuredClone(r.state);g.tick=(stage-1)*8;r.restore(g);prepareEncounter(r,id);r.state.mode='encounter';r.state.encounter=id;assert(r.encounter('fight'));return r;}

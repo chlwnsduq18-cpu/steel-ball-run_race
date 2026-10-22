@@ -1,10 +1,10 @@
 import '../scripts/prepare-reports.mjs';
 import {prepareEncounter} from './encounter-test-fixture.mjs';
-import {rollBirth,pickBirthEntry,initialCharacter} from '../dist/src/birth.js';
+import {rollBirth,pickBirthEntry,initialCharacter} from '../src/birth.js';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {replayFrame,advanceReplay} from '../dist/src/playback.js';
-const data=JSON.parse(fs.readFileSync('dist/game-data.json','utf8')),base=JSON.parse(fs.readFileSync('dist/runtime-base.json','utf8'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {replayFrame,advanceReplay} from '../src/playback.js';
+const data=JSON.parse(fs.readFileSync('game-data.json','utf8')),base=JSON.parse(fs.readFileSync('runtime-base.json','utf8'));
 const checks=[];function test(n,f){try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}}
 const fresh=(seed=7,origin='ranch')=>{const r=createRace(data,base,{rng:mulberry32(seed)});r.start('검사 참가자',origin);return r;};
 const fight=(r,id)=>{r.state.mode='encounter';r.state.encounter=id;prepareEncounter(r,id);r.encounter('fight');return r.state.combat;};

@@ -1,11 +1,11 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';
-import {validateEconomyCatalog,checkpointFunds,canSpendFunds,spendFunds,shopRows,rareShopRows} from '../dist/src/economy.js';
-import {shopScreen} from '../dist/src/shop-ui.js';
+import {createRace} from '../src/race.js';
+import {validateEconomyCatalog,checkpointFunds,canSpendFunds,spendFunds,shopRows,rareShopRows} from '../src/economy.js';
+import {shopScreen} from '../src/shop-ui.js';
 import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const bad=[undefined,null,NaN,Infinity,-Infinity,-1,'60','',{},0.5,Number.MAX_SAFE_INTEGER+1];
 function market(data=D,stage=3,money=1000){

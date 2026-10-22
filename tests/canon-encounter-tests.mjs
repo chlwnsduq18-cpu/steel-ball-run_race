@@ -2,8 +2,8 @@ import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
 import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';
-import {mulberry32} from '../dist/src/engine.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {mulberry32} from '../src/engine.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const aides=['porkpie','eleven','ringo','blackmore','wekapipo','magenta','disco'];
 function make(tick=64,data=D){const r=createRace(data,R,{rng:mulberry32(31)});r.start('조우 검수',{origins:'time',talents:'steady',flaws:'weak_condition',weapons:'revolver'});r.state.tick=tick;r.state.economy.market.nextTick=999;r.restore(r.state);return r;}

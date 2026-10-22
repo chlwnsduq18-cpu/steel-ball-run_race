@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import {prepareEncounter} from './encounter-test-fixture.mjs';
-import fs from 'node:fs';import assert from 'node:assert/strict';import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {makeOpponent,opponentCard,opponentPlan} from '../dist/src/opponents.js';import {eventChoiceHint,journeyScreen} from '../dist/src/journey-ui.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json')),old=JSON.parse(fs.readFileSync('fixtures/threat-v027.json'));const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
+import fs from 'node:fs';import assert from 'node:assert/strict';import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {makeOpponent,opponentCard,opponentPlan} from '../src/opponents.js';import {eventChoiceHint,journeyScreen} from '../src/journey-ui.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json')),old=JSON.parse(fs.readFileSync('fixtures/threat-v027.json'));const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(tick=0)=>{const r=createRace(D,R,{rng:mulberry32(19)});r.start('검수',{origins:'time',talents:'steady',flaws:'weak_condition',weapons:'revolver'});const g=structuredClone(r.state);g.tick=tick;r.restore(g);return r;};
 const fight=(r,id)=>{r.state.mode='encounter';r.state.encounter=id;prepareEncounter(r,id);assert(r.encounter('fight'));return r.state.combat;};
 const at=(r,id)=>{r.state.mode='event';r.state.event=id;};

@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {itemEffects,activeEffects} from '../dist/src/progression.js';
-import {gearSuperior} from '../dist/src/economy.js';import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {itemEffects,activeEffects} from '../src/progression.js';
+import {gearSuperior} from '../src/economy.js';import {boot} from './ui-test-harness.mjs';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=()=>{const r=createRace(D,R,{rng:mulberry32(400)});r.start('보상 장비 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:'sabre'});return r;};
 function equip(r,id){if(!r.state.items.includes(id))r.state.items.push(id);assert(r.equipItem(id));}

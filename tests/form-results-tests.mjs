@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
 import {boot} from './ui-test-harness.mjs';import {prepareEncounter} from './encounter-test-fixture.mjs';
-import {opponentPlan} from '../dist/src/opponents.js';
+import {opponentPlan} from '../src/opponents.js';
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const escape=s=>s.replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;').replaceAll("'",'&#39;');
 function start(origin='steel',skip=false){const b=boot();b.ui.draft.origins=origin;b.ui.draft.flaws='weak_condition';if(skip){b.ui.action('settings');b.ui.action('speed:off');b.close();}b.ui.action('start');for(const row of b.ui.data.hiddenBosses)row.chance=0;for(const row of b.ui.data.encounterRules.namedChances)row.chance=0;return b;}

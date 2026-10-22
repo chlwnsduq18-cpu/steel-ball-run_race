@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import {endingImageBlocks,wrapEndingText,createEndingPng,exportEndingImage} from '../dist/src/ending-image.js';
+import {endingImageBlocks,wrapEndingText,createEndingPng,exportEndingImage} from '../src/ending-image.js';
 const el=(tag,text='',classes=[],children=[])=>({tagName:tag.toUpperCase(),textContent:text,children,classList:{contains:x=>classes.includes(x)}});
 const section=el('section','',[],[el('h1','엔딩'),el('p','결말 본문'),el('details','',[],[el('summary','마지막 덱'),el('div','',['ending-card'],[el('b','손톱탄'),el('span','효과')])])]);
 const blocks=endingImageBlocks(section);assert(blocks.some(x=>x.text.includes('손톱탄')));assert(blocks.some(x=>x.text==='결말 본문'));

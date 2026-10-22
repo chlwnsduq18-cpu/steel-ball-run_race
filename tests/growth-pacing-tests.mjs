@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../dist/src/engine.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json')),legacy=JSON.parse(fs.readFileSync('fixtures/growth-v026.json'));
+import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../src/engine.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json')),legacy=JSON.parse(fs.readFileSync('fixtures/growth-v026.json'));
 const checks=[],hidden=D.starts.filter(o=>o.hidden),places=['road','camp','town','explore'];
 const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(id='time',seed=7)=>{const r=createRace(D,R,{rng:mulberry32(seed)});r.start('성장 검수',{origins:id,talents:'steady',flaws:'slow',weapons:'revolver'});return r;};

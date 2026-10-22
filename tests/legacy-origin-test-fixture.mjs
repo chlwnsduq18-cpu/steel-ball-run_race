@@ -1,4 +1,4 @@
-import {createRace} from '../dist/src/race.js';
+import {createRace} from '../src/race.js';
 // Explicit v0.43 content fixture: these suites exercise retained three-chapter
 // stories and their preexisting scheduler. Fresh v0.44 runs are tested separately
 // in hidden-routes-tests.mjs through the real event and combat APIs.

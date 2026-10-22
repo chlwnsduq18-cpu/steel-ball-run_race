@@ -12,7 +12,7 @@ npm run dev
 ```
 
 브라우저에서 http://localhost:4173 에 접속합니다.
-별도의 서버 없이 실행하려면 `dist/sbr-race.html`을 브라우저로 엽니다.
+별도의 서버 없이 실행하려면 `sbr-race.html`을 브라우저로 엽니다.
 
 ## 검증
 
@@ -22,6 +22,8 @@ npm test
 
 ## 배포
 
-`npm run build` 완료 후 `dist/`의 내용을 정적 호스팅에 배포합니다.
-`dist/`에는 직접 관리하는 코드도 포함되어 있으므로 빌드 전에 폴더를 삭제하지 않습니다.
+GitHub Pages에서 **Settings → Pages → Deploy from a branch → main → /(root)**를 선택합니다.
+저장소 루트의 `index.html`이 시작 페이지이며, `src/`, `style.css`, `game-data.json`, `runtime-base.json`을 함께 사용합니다.
+소스나 데이터 수정 후 `npm run build`를 실행하고 생성된 파일을 함께 커밋합니다.
+GitHub Free는 공개 저장소에서 Pages를 지원하며, 개인 비공개 저장소에는 GitHub Pro가 필요합니다.
 게임 저장 기록은 접속한 사이트 주소별 브라우저 저장소에 보관됩니다.

@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
 import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(){const r=createRace(D,R,{rng:()=>0});r.start('후속 검수',{origins:'time',talents:'steady',flaws:'weak_condition',weapons:'revolver'});r.state.economy.market.nextTick=999;return r;}
 function choose(r,id,i=0){r.state.mode='event';r.state.event=id;assert(r.chooseEvent(i),id);}

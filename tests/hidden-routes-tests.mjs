@@ -1,12 +1,12 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';
-import {mulberry32} from '../dist/src/engine.js';
-import {hiddenRouteEvent,hiddenBeforeRound,hiddenCombatPlan,validHiddenRoute} from '../dist/src/hidden-routes.js';
-import {mergeAchievementProfile,normalizeAchievementProfile,achievementsScreen} from '../dist/src/achievements.js';
+import {createRace} from '../src/race.js';
+import {mulberry32} from '../src/engine.js';
+import {hiddenRouteEvent,hiddenBeforeRound,hiddenCombatPlan,validHiddenRoute} from '../src/hidden-routes.js';
+import {mergeAchievementProfile,normalizeAchievementProfile,achievementsScreen} from '../src/achievements.js';
 import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];function test(name,fn){try{fn();checks.push({name,ok:true});}catch(e){checks.push({name,ok:false,error:e.stack});}}
 function make(origin,seed=27){const r=createRace(D,R,{rng:mulberry32(seed)});r.start('회차 검증',{origins:origin,talents:'steady',flaws:'slow',weapons:'revolver'});return r;}
 function restore(r){const x=make(r.state.origin,999);assert(x.restore(structuredClone(r.state)));return x;}

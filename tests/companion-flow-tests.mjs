@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {activeCompanionIds,companionProfile,resolveCompanionSupport} from '../dist/src/companions.js';
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {activeCompanionIds,companionProfile,resolveCompanionSupport} from '../src/companions.js';
 import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(roll=.999){const r=createRace(D,R,{rng:typeof roll==='function'?roll:()=>roll});r.start('동행 여정 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:'sabre'});return r;}
 function encounter(r,id){r.state.mode='omen';r.state.encounter=id;r.state.bossVisits[id]=r.stage();}

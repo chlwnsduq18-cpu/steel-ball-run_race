@@ -1,10 +1,10 @@
 import '../scripts/prepare-reports.mjs';
 import {waitForFollowup} from './followup-test-fixture.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../dist/src/engine.js';
-import {activeEffects} from '../dist/src/progression.js';
-import {CFG} from '../dist/src/config.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../src/engine.js';
+import {activeEffects} from '../src/progression.js';
+import {CFG} from '../src/config.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,fn)=>{try{fn();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(origin='ranch',seed=91,data=D)=>{const r=createRace(data,R,{rng:mulberry32(seed)});r.start('진행 검사',{origins:origin,talents:'steady',flaws:'slow',weapons:'rifle'});return r;};
 const set=(r,id)=>{const e=D.events.find(e=>e.id===id);if(e?.hiddenGrowth)r.state.tick=Math.max(r.state.tick,(e.from-1)*D.rules.turnsPerStage,(r.state.flagTicks[e.after?.flag]||0)+(e.after?.ticks||0));waitForFollowup(r,id);r.state.mode='event';r.state.event=id;return D.events.find(e=>e.id===id);};

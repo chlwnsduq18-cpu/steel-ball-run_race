@@ -1,8 +1,8 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {standPack} from '../dist/src/stand.js';
-import {journeyScreen} from '../dist/src/journey-ui.js';import {waitForFollowup} from './followup-test-fixture.mjs';import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {standPack} from '../src/stand.js';
+import {journeyScreen} from '../src/journey-ui.js';import {waitForFollowup} from './followup-test-fixture.mjs';import {boot} from './ui-test-harness.mjs';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(stand=false){const r=createRace(D,R,{rng:mulberry32(96)});r.start('검수 참가자',{origins:'ranch',talents:stand?'recovery':'steady',flaws:'slow',weapons:'sabre'});return r;}
 function at(r,id,index=0){const e=D.events.find(e=>e.id===id);r.state.tick=Math.max(r.state.tick,(e.from-1)*8);waitForFollowup(r,id);r.state.mode='event';r.state.event=id;assert(r.chooseEvent(index),id+'/'+index);}

@@ -1,10 +1,10 @@
 import '../scripts/prepare-reports.mjs';
 import {prepareEncounter} from './encounter-test-fixture.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';
-import {achievementEvidence,normalizeAchievementProfile,mergeAchievementProfile} from '../dist/src/achievements.js';
-import {initialCharacter,rollBirth} from '../dist/src/birth.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';
+import {achievementEvidence,normalizeAchievementProfile,mergeAchievementProfile} from '../src/achievements.js';
+import {initialCharacter,rollBirth} from '../src/birth.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const birth=(preset)=>({origins:'ranch',talents:'steady',flaws:'weak_condition',weapons:'revolver',...(preset?{achievementDeck:preset}:{})});
 const make=(unlockedDecks=[])=>{const r=createRace(D,R,{rng:()=>.5,unlockedDecks});r.start('커스텀 참가자',birth());return r;};

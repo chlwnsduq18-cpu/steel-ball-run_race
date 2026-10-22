@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {makeOpponent} from '../dist/src/opponents.js';import {attachEnemySpeeches} from '../dist/src/battle-quotes.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json')),legacy=JSON.parse(fs.readFileSync('fixtures/finale-v028.json'));const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true})}catch(e){checks.push({n,ok:false,error:e.stack})}};
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {makeOpponent} from '../src/opponents.js';import {attachEnemySpeeches} from '../src/battle-quotes.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json')),legacy=JSON.parse(fs.readFileSync('fixtures/finale-v028.json'));const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true})}catch(e){checks.push({n,ok:false,error:e.stack})}};
 function make(tick=0){const r=createRace(D,R,{rng:mulberry32(23)});r.start('검증 참가자',{origins:'time',talents:'steady',flaws:'weak_condition',weapons:'revolver'});r.state.tick=tick;r.restore(r.state);return r;}
 function step(r){r.state.mode='event';r.state.event='camp_meal';assert(r.chooseEvent(0));}
 function fight(r,id='ringo'){r.state.mode='encounter';r.state.encounter=id;assert(r.encounter('fight'));return r.state.combat;}

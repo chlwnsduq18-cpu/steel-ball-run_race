@@ -3,8 +3,8 @@ import {boot} from './ui-test-harness.mjs';
 import {prepareEncounter} from './encounter-test-fixture.mjs';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import {replayFrame} from '../dist/src/playback.js';
-const html=fs.readFileSync('dist/sbr-race.html','utf8'),js=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
+import {replayFrame} from '../src/playback.js';
+const html=fs.readFileSync('sbr-race.html','utf8'),js=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
 const checks=[];
 function test(n,f){try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}}
 
@@ -219,7 +219,7 @@ test('출발 전 패치 모달은 최신순·현재 버전·강화 수치를 표
  assert.equal(JSON.stringify(b.ui.draft),draft);
  assert(!b.ui.race.state);
  b.close();assert(!b.elements.get('#sheet').open);
- assert(fs.readFileSync('dist/index.html','utf8').includes('<dialog id="sheet" aria-labelledby="sheet-title">'));
+ assert(fs.readFileSync('index.html','utf8').includes('<dialog id="sheet" aria-labelledby="sheet-title">'));
 });
 
 test('메뉴는 보조 도구만 모으고 시작 전에는 기록을 숨김·도움과 설정 연결',()=>{

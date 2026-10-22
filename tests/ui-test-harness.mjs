@@ -1,5 +1,5 @@
 import fs from 'node:fs';import assert from 'node:assert/strict';
-const html=fs.readFileSync('dist/sbr-race.html','utf8'),js=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
+const html=fs.readFileSync('sbr-race.html','utf8'),js=html.match(/<script type="module">([\s\S]*?)<\/script>/)[1];
 export function boot(storage=new Map()){
  const elements=new Map(),listeners=new Map(),timers=new Map(),scrolls=[];let timerId=0;
  const document={documentElement:{dataset:{}},hidden:false,scrollingElement:{scrollTo(options){scrolls.push(options);}},querySelector(s){if(!elements.has(s)){const handlers=new Map();elements.set(s,{innerHTML:'',textContent:'',value:s==='#name'?'나의 참가자':'',open:false,classList:{toggle(){},add(){},remove(){}},addEventListener(k,f){handlers.set(k,f);},showModal(){this.open=true;},close(){this.open=false;handlers.get('close')?.();}});}return elements.get(s);},addEventListener(k,f){listeners.set(k,f);}};

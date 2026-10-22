@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import {prepareEncounter} from './encounter-test-fixture.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../dist/src/engine.js';
-import {grantDedicatedCards,initializeDedicatedRewards} from '../dist/src/dedicated.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json')),legacy=JSON.parse(fs.readFileSync('fixtures/dedicated-v022.json'));
+import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../src/engine.js';
+import {grantDedicatedCards,initializeDedicatedRewards} from '../src/dedicated.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json')),legacy=JSON.parse(fs.readFileSync('fixtures/dedicated-v022.json'));
 const checks=[];const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const hidden=D.starts.filter(o=>o.hidden),make=(id,seed=7)=>{const r=createRace(D,R,{rng:mulberry32(seed),unlockedDecks:['tusk','world','d4c']});r.start('내 참가자',{origins:id.startsWith('achievement_')?'ranch':id,talents:'steady',flaws:'slow',weapons:'revolver',...(id.startsWith('achievement_')?{achievementDeck:id.slice(12)}:{})});return r;};
 const owned=g=>[...g.ch.deck,...g.ch.side],count=g=>owned(g).length;

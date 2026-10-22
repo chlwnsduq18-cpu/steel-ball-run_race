@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {waitForFollowup} from './followup-test-fixture.mjs';import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {waitForFollowup} from './followup-test-fixture.mjs';import {boot} from './ui-test-harness.mjs';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(){const r=createRace(D,R,{rng:()=>.5});r.start('전투 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:'sabre'});return r;}
 function springFight(){const r=make();r.state.tick=24;r.restore(r.state);const g=r.state;g.mode='event';g.event='spring_offer';assert(r.chooseEvent(0));waitForFollowup(r,'spring_barter');g.mode='event';g.event='spring_barter';assert(r.chooseEvent(2));return r;}

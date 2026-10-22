@@ -1,6 +1,6 @@
 import '../scripts/prepare-reports.mjs';
-import fs from 'node:fs';import assert from 'node:assert/strict';import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {eventChoiceHint} from '../dist/src/journey-ui.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true})}catch(e){checks.push({n,ok:false,error:e.stack})}};
+import fs from 'node:fs';import assert from 'node:assert/strict';import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {eventChoiceHint} from '../src/journey-ui.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true})}catch(e){checks.push({n,ok:false,error:e.stack})}};
 function make(tick=10,origin='ranch',seed=42){const r=createRace(D,R,{rng:mulberry32(seed)});r.start('검수',{origins:origin,talents:'steady',flaws:'weak_condition',weapons:'revolver'});r.state.tick=tick;r.restore(r.state);return r;}
 function at(r,id){r.state.mode='event';r.state.event=id;}
 function step(r){at(r,'camp_meal');assert(r.chooseEvent(0));}

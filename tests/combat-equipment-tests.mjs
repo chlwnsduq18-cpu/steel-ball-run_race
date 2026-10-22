@@ -1,11 +1,11 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {CFG} from '../dist/src/config.js';import {gradedPlayerCard,playerCardGrade} from '../dist/src/player-support.js';
-import {weaponDiceProfile,visibleWeaponDice,validWeaponDice} from '../dist/src/weapon-dice.js';
-import {gearSuperior} from '../dist/src/economy.js';import {resolveCompanionSupport} from '../dist/src/companions.js';
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {CFG} from '../src/config.js';import {gradedPlayerCard,playerCardGrade} from '../src/player-support.js';
+import {weaponDiceProfile,visibleWeaponDice,validWeaponDice} from '../src/weapon-dice.js';
+import {gearSuperior} from '../src/economy.js';import {resolveCompanionSupport} from '../src/companions.js';
 import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(weapon=null,stage=1,rng=mulberry32(390)){const r=createRace(D,R,{rng});r.start('주사위 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:'sabre'});if(weapon){r.state.items.push(weapon);assert(r.equipItem(weapon));}r.state.tick=(stage-1)*8;assert(r.restore(r.state));return r;}
 function fight(r){r.state.mode='encounter';r.state.encounter='rough_rider';assert(r.encounter('fight'));const C=r.state.combat;C.P.hp=C.P.maxHp=C.E.hp=C.E.maxHp=100000;C.P.atk=1000;C.E.eva=-1000;C.P.light=10;C.ePlan=[];return C;}

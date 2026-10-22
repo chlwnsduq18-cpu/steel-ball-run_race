@@ -1,10 +1,10 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';
-import {mulberry32} from '../dist/src/engine.js';
-import {playerCardGrade,visibleCardGrade,gradedPlayerCard,playerSupportBonus,initializePlayerSupport} from '../dist/src/player-support.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json','utf8')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json','utf8'));
+import {createRace} from '../src/race.js';
+import {mulberry32} from '../src/engine.js';
+import {playerCardGrade,visibleCardGrade,gradedPlayerCard,playerSupportBonus,initializePlayerSupport} from '../src/player-support.js';
+const D=JSON.parse(fs.readFileSync('game-data.json','utf8')),R=JSON.parse(fs.readFileSync('runtime-base.json','utf8'));
 const old=JSON.parse(fs.readFileSync('fixtures/player-growth-v0241.json','utf8'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(tick=0,origin='ranch',preset)=>{

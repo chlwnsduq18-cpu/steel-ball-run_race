@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {activeEffects} from '../dist/src/progression.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {activeEffects} from '../src/progression.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,fn)=>{try{fn();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(origin='ranch',seed=7)=>{const r=createRace(D,R,{rng:mulberry32(seed)});r.start('경제 검사',{origins:origin,talents:'steady',flaws:'slow',weapons:'rifle'});return r;};
 const market=(r,tick=Math.max(4,r.state.tick))=>{r.state.usedEvents.push('stand_palm','stand_echo');r.state.tick=tick;r.state.mode='travel';assert(r.travel('ride'));assert(r.canShop());r.restore(structuredClone(r.state));return r;};

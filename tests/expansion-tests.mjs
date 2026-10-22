@@ -1,10 +1,10 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {pickBirthEntry,initialCharacter} from '../dist/src/birth.js';import {activeEffects,growItems} from '../dist/src/progression.js';
-import {boot} from './ui-test-harness.mjs';import {replayPanel} from '../dist/src/playback.js';
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {pickBirthEntry,initialCharacter} from '../src/birth.js';import {activeEffects,growItems} from '../src/progression.js';
+import {boot} from './ui-test-harness.mjs';import {replayPanel} from '../src/playback.js';
 import {waitForFollowup} from './followup-test-fixture.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(origin='ranch',talents='steady',weapons='revolver',flaws='weak_condition'){
  const r=createRace(D,R,{rng:mulberry32(26)});assert(r.start('나의 여정',{origins:origin,talents,weapons,flaws}));return r;

@@ -1,8 +1,8 @@
 import '../scripts/prepare-reports.mjs';
 import {waitForFollowup} from './followup-test-fixture.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';import {eventChoiceHint} from '../dist/src/journey-ui.js';import {shopScreen} from '../dist/src/shop-ui.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';import {eventChoiceHint} from '../src/journey-ui.js';import {shopScreen} from '../src/shop-ui.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(origin='ranch',rng=mulberry32(7))=>{const r=createRace(D,R,{rng});r.start('세계관 검사',{origins:origin,talents:'steady',flaws:'slow',weapons:'rifle'});return r;};
 const set=(r,id)=>{waitForFollowup(r,id);r.state.mode='event';r.state.event=id;return D.events.find(e=>e.id===id);};

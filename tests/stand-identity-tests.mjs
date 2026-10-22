@@ -1,8 +1,8 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../dist/src/engine.js';
-import {canAwakenStand,standCard,validateStandIdentity} from '../dist/src/stand.js';import {activeEffects} from '../dist/src/progression.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../src/engine.js';
+import {canAwakenStand,standCard,validateStandIdentity} from '../src/stand.js';import {activeEffects} from '../src/progression.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(origin='ranch',talents='steady')=>{const r=createRace(D,R,{rng:mulberry32(11)});r.start('유형 검사',{origins:origin,talents,flaws:'slow',weapons:'rifle'});return r;};
 const set=(r,id='stand_palm')=>{r.state.tick=8;r.state.mode='event';r.state.event=id;};

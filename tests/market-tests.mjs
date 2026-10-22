@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {activeEffects} from '../dist/src/progression.js';import {shopScreen} from '../dist/src/shop-ui.js';
-import {normalizePreferences,applyTheme} from '../dist/src/preferences.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json','utf8')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json','utf8')),legacy=JSON.parse(fs.readFileSync('fixtures/market-v025.json','utf8'));
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {activeEffects} from '../src/progression.js';import {shopScreen} from '../src/shop-ui.js';
+import {normalizePreferences,applyTheme} from '../src/preferences.js';
+const D=JSON.parse(fs.readFileSync('game-data.json','utf8')),R=JSON.parse(fs.readFileSync('runtime-base.json','utf8')),legacy=JSON.parse(fs.readFileSync('fixtures/market-v025.json','utf8'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(stage=1,origin='ranch')=>{const r=createRace(D,R,{rng:mulberry32(37)});r.start('상점 검사',{origins:origin,talents:'steady',flaws:'weak_condition',weapons:'revolver'});r.state.tick=(stage-1)*8;r.restore(r.state);r.state.mode='event';r.state.event='supply_caravan';r.state.economy.market.tick=r.state.tick;r.state.ch.money=1000;return r;};
 const esc=s=>String(s).replaceAll('&','&amp;').replaceAll('<','&lt;').replaceAll('>','&gt;').replaceAll('"','&quot;');
@@ -55,7 +55,7 @@ test('기존 전투 연출 설정과 잘못된 테마 값은 호환되는 기본
  assert.deepEqual(normalizePreferences({combat:'fast'}),{combat:'fast',theme:'dusk'});assert.deepEqual(normalizePreferences({combat:'off',theme:'bogus'}),{combat:'off',theme:'dusk'});assert.deepEqual(normalizePreferences(null),{combat:'normal',theme:'dusk'});const doc={documentElement:{dataset:{}}};assert.equal(applyTheme(doc,'paper'),'paper');assert.equal(doc.documentElement.dataset.theme,'paper');
 });
 test('세 테마의 본문·보조 텍스트·가격 색상은 배경 대비 4.5 이상',()=>{
- const css=fs.readFileSync('dist/style.css','utf8'),luminance=hex=>{const rgb=hex.match(/\w\w/g).map(x=>parseInt(x,16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;};
+ const css=fs.readFileSync('style.css','utf8'),luminance=hex=>{const rgb=hex.match(/\w\w/g).map(x=>parseInt(x,16)/255).map(x=>x<=.04045?x/12.92:((x+.055)/1.055)**2.4);return rgb[0]*.2126+rgb[1]*.7152+rgb[2]*.0722;};
  for(const name of ['dusk','paper','ink']){const block=name==='dusk'?css.match(/:root\{([^}]+)\}/)[1]:css.match(new RegExp(':root\\[data-theme="'+name+'"\\]\\{([^}]+)\\}'))[1];const vars=Object.fromEntries(Array.from(block.matchAll(/--([a-z-]+):#([0-9a-f]{6})/g),m=>[m[1],m[2]]));for(const key of ['ink','muted','gold']){const a=luminance(vars[key]),b=luminance(vars.bg);assert((Math.max(a,b)+.05)/(Math.min(a,b)+.05)>=4.5,name+' '+key);}}
 });
 

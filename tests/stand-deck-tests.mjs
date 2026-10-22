@@ -1,8 +1,8 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../dist/src/engine.js';
-import {canAwakenStand,standCard,standPack} from '../dist/src/stand.js';import {activeEffects} from '../dist/src/progression.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../src/engine.js';
+import {canAwakenStand,standCard,standPack} from '../src/stand.js';import {activeEffects} from '../src/progression.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[];const test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 const make=(origin='ranch',talents='steady',seed=11)=>{const r=createRace(D,R,{rng:mulberry32(seed)});r.start('편성 검사',{origins:origin,talents,flaws:'slow',weapons:'rifle'});return r;};
 const awaken=(r,type='force')=>{r.state.mode='event';r.state.event='stand_palm';r.state.tick=2;assert(r.chooseEvent(D.stands.choices.indexOf(type),{standName:'먼 길',standLine:'끝까지 간다!'}));};

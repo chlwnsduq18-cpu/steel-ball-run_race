@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';
+import {createRace} from '../src/race.js';
 import {prepareEncounter} from './encounter-test-fixture.mjs';
-import {replayPanel} from '../dist/src/playback.js';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {replayPanel} from '../src/playback.js';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function fight(id,tick=56){const r=createRace(D,R,{rng:()=>.5});r.start('대사 검수',{origins:'time',talents:'steady',flaws:'weak_condition',weapons:'revolver'});r.state.tick=tick;prepareEncounter(r,id);r.state.encounter=id;r.state.mode='omen';assert(r.encounter('fight'));const C=r.state.combat;C.P.hp=C.P.maxHp=C.E.hp=C.E.maxHp=9999;C.P.hand=[];return r;}
 function play(r,ids){r.state.combat.ePlan=ids.map(id=>r.engine.D.cards[id]);assert(r.round([],{playback:true}));return r.state.playback.events.filter(e=>e.speech);}

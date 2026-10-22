@@ -1,7 +1,7 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../dist/src/engine.js';import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+import {createLegacyOriginRace as createRace} from './legacy-origin-test-fixture.mjs';import {mulberry32} from '../src/engine.js';import {boot} from './ui-test-harness.mjs';
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const tests=[];const test=(n,f)=>{try{f();tests.push({n,ok:true});}catch(e){tests.push({n,ok:false,error:e.stack});}};
 const make=(id='time')=>{const r=createRace(D,R,{rng:mulberry32(27)});r.start('갈림길',{origins:id,talents:'steady',flaws:'slow',weapons:'revolver'});return r;};
 function present(r,id,tick){const g=r.state;g.tick=tick;g.mode='travel';assert(r.availableEvents().some(e=>e.id===id),id);g.event=id;g.mode='event';}

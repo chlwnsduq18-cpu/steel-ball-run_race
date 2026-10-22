@@ -1,9 +1,9 @@
 import '../scripts/prepare-reports.mjs';
 import fs from 'node:fs';import assert from 'node:assert/strict';
-import {createRace} from '../dist/src/race.js';import {mulberry32} from '../dist/src/engine.js';
-import {gearSuperior,gearDominated,shopSupplyIds,resalePrice} from '../dist/src/economy.js';
+import {createRace} from '../src/race.js';import {mulberry32} from '../src/engine.js';
+import {gearSuperior,gearDominated,shopSupplyIds,resalePrice} from '../src/economy.js';
 import {boot} from './ui-test-harness.mjs';
-const D=JSON.parse(fs.readFileSync('dist/game-data.json')),R=JSON.parse(fs.readFileSync('dist/runtime-base.json'));
+const D=JSON.parse(fs.readFileSync('game-data.json')),R=JSON.parse(fs.readFileSync('runtime-base.json'));
 const checks=[],test=(n,f)=>{try{f();checks.push({n,ok:true});}catch(e){checks.push({n,ok:false,error:e.stack});}};
 function make(data=D,weapon='knife'){const r=createRace(data,R,{rng:mulberry32(39)});r.start('정리 검사',{origins:'ranch',talents:'steady',flaws:'slow',weapons:weapon});return r;}
 function market(r,stage=7){const g=r.state;g.tick=(stage-1)*8;g.mode='event';g.event='supply_caravan';g.economy.market.tick=g.tick;g.ch.money=1000;return r;}
